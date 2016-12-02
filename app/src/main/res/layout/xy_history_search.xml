@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/xyHistorySearchBar1"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="@dimen/normal_margin"
+        android:layout_marginRight="@dimen/normal_margin"
+        android:layout_alignParentTop="true"
+        android:baselineAligned="false" >
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/begin_date_label"
+            android:textSize="25sp" />
+
+        <EditText
+            android:id="@+id/xyHistorySearchBegin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/begin_date_label" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/xyHistorySearchBar2"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/xyHistorySearchBar1"
+        android:layout_marginLeft="@dimen/normal_margin"
+        android:layout_marginRight="@dimen/normal_margin"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/end_date_label"
+            android:textSize="25sp" />
+
+        <EditText
+            android:id="@+id/xyHistorySearchEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/end_date_label" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/xyHistorySearchBar3"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/xyHistorySearchBar2"
+        android:layout_marginLeft="@dimen/normal_margin"
+        android:layout_marginRight="@dimen/normal_margin"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:gravity="center_vertical|center_horizontal" >
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="beginSearch"
+            android:text="@string/search_button" />
+        
+        <View
+            android:layout_width="20dp"
+            android:layout_height="match_parent" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="cancelSearch"
+            android:text="@string/button_cancel" />
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <!-- title -->
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/tzMainBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tzMainToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="@string/tzTitle"/>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/tzOperationBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/yd_pj_title"
+            android:src="@mipmap/yd_peijian" />
+
+        <TextView
+            android:id="@+id/tzPJName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/label_device_name" />
+
+        <Button
+            android:id="@+id/tzPJOperator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="tzOperation"
+            android:text="@string/button_start" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/tzValueLabel"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical|center_horizontal" >
+
+        <TextView
+            android:id="@+id/tzValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tzValue"
+            android:textColor="@color/normal_value_color"
+            android:textSize="30sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tzLabel"
+            android:textColor="@color/normal_label_color"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tzMeasureTimeLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/normal_margin"
+        android:layout_marginRight="@dimen/normal_margin"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:text="@string/xy_measure_time"
+        android:textSize="12sp"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:id="@+id/tzHorizontalLine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:contentDescription="@string/horizontal_line"
+        android:scaleType="fitXY"
+        android:src="@mipmap/line_h" />
+
+    <LinearLayout
+        android:id="@+id/tzOtherValue1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center_vertical" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tzZFValue"
+                android:textColor="@color/normal_label_color"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tzZFValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tzPecentLabel"
+                android:textColor="@color/normal_value_color"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/tzZFImage"
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:contentDescription="@string/tz_result"
+                android:src="@mipmap/normal" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:contentDescription="@string/vertical_line"
+            android:scaleType="fitXY"
+            android:src="@mipmap/home_vertical_line" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tzJRValue"
+                android:textColor="@color/normal_label_color"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tzJRValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tzPecentLabel"
+                android:textColor="@color/normal_value_color"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/tzJRImage"
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:contentDescription="@string/tz_result"
+                android:src="@mipmap/normal" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:contentDescription="@string/vertical_line"
+            android:scaleType="fitXY"
+            android:src="@mipmap/home_vertical_line" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tzSFValue"
+                android:textColor="@color/normal_label_color"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tzSFValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tzPecentLabel"
+                android:textColor="@color/normal_value_color"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/tzSFImage"
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:contentDescription="@string/tz_result"
+                android:src="@mipmap/normal" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/tzOtherValue2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center_vertical" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tzBMIValue"
+                android:textColor="@color/normal_label_color"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tzBMIValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tzPecentLabel"
+                android:textColor="@color/normal_value_color"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/tzBMIImage"
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:contentDescription="@string/tz_result"
+                android:src="@mipmap/normal" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:contentDescription="@string/vertical_line"
+            android:scaleType="fitXY"
+            android:src="@mipmap/home_vertical_line" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tzQZValue"
+                android:textColor="@color/normal_label_color"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tzQZValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tzPecentLabel"
+                android:textColor="@color/normal_value_color"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/tzQZImage"
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:contentDescription="@string/tz_result"
+                android:src="@mipmap/normal" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:contentDescription="@string/vertical_line"
+            android:scaleType="fitXY"
+            android:src="@mipmap/home_vertical_line" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tzGGValue"
+                android:textColor="@color/normal_label_color"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tzGGValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tzPecentLabel"
+                android:textColor="@color/normal_value_color"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/tzGGImage"
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:contentDescription="@string/tz_result"
+                android:src="@mipmap/normal" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/tzOtherValue3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:gravity="center_vertical" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tzNZValue"
+                android:textColor="@color/normal_label_color"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tzNZValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tzPecentLabel"
+                android:textColor="@color/normal_value_color"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/tzNZImage"
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:contentDescription="@string/tz_result"
+                android:src="@mipmap/normal" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:contentDescription="@string/vertical_line"
+            android:scaleType="fitXY"
+            android:src="@mipmap/home_vertical_line" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tzJCValue"
+                android:textColor="@color/normal_label_color"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tzJCValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tzPecentLabel"
+                android:textColor="@color/normal_value_color"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/tzJCImage"
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:contentDescription="@string/tz_result"
+                android:src="@mipmap/normal" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:contentDescription="@string/vertical_line"
+            android:scaleType="fitXY"
+            android:src="@mipmap/home_vertical_line" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tzSTValue"
+                android:textColor="@color/normal_label_color"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tzSTValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tzPecentLabel"
+                android:textColor="@color/normal_value_color"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/tzSTImage"
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:contentDescription="@string/tz_result"
+                android:src="@mipmap/normal" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

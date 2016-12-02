@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:paddingBottom="55dp"
+        android:persistentDrawingCache="animation" />
+
+    <RadioGroup
+        android:id="@+id/tw_tab_btns"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottomBar_height_dimen"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="@color/bottomBar_bg_color"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:paddingTop="5dp" >
+
+        <RadioButton
+            android:id="@+id/twMainTab"
+            style="@style/tabRadioButtonStyle"
+            android:checked="true"
+            android:text="@string/tw_main"
+            android:drawableTop="@drawable/selector_tw_btn" />
+
+        <RadioButton
+            android:id="@+id/twHistoryTab"
+            style="@style/tabRadioButtonStyle"
+            android:text="@string/tw_history"
+            android:drawableTop="@drawable/selector_ls_btn" />
+
+        <RadioButton
+            android:id="@+id/twRecordTab"
+            style="@style/tabRadioButtonStyle"
+            android:text="@string/tw_record"
+            android:drawableTop="@drawable/selector_qs_btn" />
+    </RadioGroup>
+
+</RelativeLayout>

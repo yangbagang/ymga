@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <!-- title -->
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/ydGPSPedometerBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/ydGPSPedometerToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="@string/yd_gps_title"/>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <!-- hidden menu option -->
+
+    <LinearLayout
+        android:id="@+id/yd_gps_button"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#ffffffff"
+        android:baselineAligned="false"
+        android:gravity="center_vertical" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:onClick="gpsPedometerStop"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/gpsStopButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_stop"
+                android:textColor="#7f7f7f"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:contentDescription="@string/vertical_line"
+            android:src="@mipmap/home_vertical_line" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:onClick="gpsPedometerFinish"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/gpsFinishButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_finish"
+                android:textColor="#7f7f7f"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:contentDescription="@string/vertical_line"
+            android:src="@mipmap/home_vertical_line" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:onClick="gpsPedometerPause"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/gpsPauseButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_pause"
+                android:textColor="#7f7f7f"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1" >
+
+        <com.baidu.mapapi.map.MapView
+            android:id="@+id/ydGPSRouter"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="@string/app_title" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ydPJYdTotal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:visibility="visible" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:contentDescription="@string/pedometerDistanceLabel"
+                android:src="@mipmap/distance" />
+
+            <TextView
+                android:id="@+id/pedometerDistanceValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pedometerDistanceValue"
+                android:textColor="@color/normal_value_color"
+                android:textSize="30sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pedometerDistanceLabel"
+                android:textColor="@color/normal_label_color"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:contentDescription="@string/vertical_line"
+            android:scaleType="fitXY"
+            android:src="@mipmap/home_vertical_line" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:contentDescription="@string/pedometerStepLabel"
+                android:src="@mipmap/step_speed" />
+
+            <TextView
+                android:id="@+id/pedometerStepValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pedometerStepValue"
+                android:textColor="@color/normal_value_color"
+                android:textSize="30sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/pedometerTimeValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pedometerTimeValue"
+                android:textColor="@color/normal_value_color"
+                android:textSize="30sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pedometerTimeLabel"
+                android:textColor="@color/normal_label_color"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:contentDescription="@string/vertical_line"
+            android:scaleType="fitXY"
+            android:src="@mipmap/home_vertical_line" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:contentDescription="@string/pedometerCaloriesLabel"
+                android:src="@mipmap/calories" />
+
+            <TextView
+                android:id="@+id/pedometerCaloriesValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pedometerCaloriesValue"
+                android:textColor="@color/normal_value_color"
+                android:textSize="30sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pedometerCaloriesLabel"
+                android:textColor="@color/normal_label_color"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ydPJYdTotal2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:visibility="gone" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:contentDescription="@string/pedometerPaceLabel"
+                android:src="@mipmap/step" />
+
+            <TextView
+                android:id="@+id/pedometerPaceValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pedometerPaceValue"
+                android:textColor="@color/normal_value_color"
+                android:textSize="30sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pedometerPaceLabel"
+                android:textColor="@color/normal_label_color"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:contentDescription="@string/vertical_line"
+            android:scaleType="fitXY"
+            android:src="@mipmap/home_vertical_line" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:contentDescription="@string/pedometerSpeedLabel"
+                android:src="@mipmap/walk_speed" />
+
+            <TextView
+                android:id="@+id/pedometerSpeedValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pedometerSpeedValue"
+                android:textColor="@color/normal_value_color"
+                android:textSize="30sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pedometerSpeedLabel"
+                android:textColor="@color/normal_label_color"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:contentDescription="@string/vertical_line"
+            android:scaleType="fitXY"
+            android:src="@mipmap/home_vertical_line" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:contentDescription="@string/pedometerCaloriesLabel"
+                android:src="@mipmap/finish_percent" />
+
+            <TextView
+                android:id="@+id/pedometerFinishValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pedometerFinishValue"
+                android:textColor="@color/normal_value_color"
+                android:textSize="30sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pedometerFinishLabel"
+                android:textColor="@color/normal_label_color"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ydGPSShare"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:gravity="center_vertical|center_horizontal" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:onClick="shareFriend"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="@string/share_py"
+                android:paddingLeft="10dp"
+                android:src="@mipmap/share_friend_zone" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp"
+                android:text="@string/share_py"
+                android:textColor="#7f7f7f" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:onClick="shareWeixin" >
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="@string/share_wx"
+                android:paddingLeft="10dp"
+                android:src="@mipmap/share_weixin" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp"
+                android:text="@string/share_wx"
+                android:textColor="#7f7f7f" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

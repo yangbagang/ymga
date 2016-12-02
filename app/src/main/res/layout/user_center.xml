@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal" >
+
+    <!-- title -->
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/userCenterBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/userCenterToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="@string/msg_about_me"/>
+
+    </android.support.design.widget.AppBarLayout>
+    <!-- title end -->
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_below="@+id/userCenterBarLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="#ffffff"
+        android:gravity="center_vertical" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="20dp"
+            android:contentDescription="@string/menu_user_avatar"
+            android:src="@mipmap/default_uimg"
+            android:onClick="startAlbum"/>
+
+        <TextView
+            android:id="@+id/userCenterName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/menu_user_name"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/device1"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/linearLayout1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="42dp"
+        android:background="#ffffff"
+        android:gravity="center_vertical" >
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:contentDescription="@string/yd_pj_label"
+            android:src="@mipmap/yd_peijian" />
+
+        <TextView
+            android:id="@+id/ydPjName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/yd_pj_label"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/ydPjButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:onClick="removeYDDevice"
+            android:text="@string/button_dis_pair" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/device2"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/device1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:background="#ffffff"
+        android:gravity="center_vertical" >
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:contentDescription="@string/yd_pj_label"
+            android:src="@mipmap/tz_d" />
+
+        <TextView
+            android:id="@+id/tzPjName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/tz_device_label"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/tzPjButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:onClick="removeTZDevice"
+            android:text="@string/button_dis_pair" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/device3"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/device2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:background="#ffffff"
+        android:gravity="center_vertical" >
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:contentDescription="@string/yd_pj_label"
+            android:src="@mipmap/xy_d" />
+
+        <TextView
+            android:id="@+id/xyPjName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/xy_device_label"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/xyPjButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:onClick="removeXYDevice"
+            android:text="@string/button_dis_pair" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/device4"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/device3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:background="#ffffff"
+        android:gravity="center_vertical" >
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:contentDescription="@string/yd_pj_label"
+            android:src="@mipmap/wuti" />
+
+        <TextView
+            android:id="@+id/twPjName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/tw_device_label"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/twPjButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:onClick="removeTWDevice"
+            android:text="@string/button_dis_pair" />
+    </LinearLayout>
+
+</RelativeLayout>

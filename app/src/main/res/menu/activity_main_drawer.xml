@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="@string/menu_item_sport">
+        <menu>
+            <item
+                android:id="@+id/nav_sport"
+                android:icon="@mipmap/left_yd"
+                android:title="@string/menu_item_sport" />
+            <item
+                android:id="@+id/nav_history"
+                android:icon="@mipmap/left_ls"
+                android:title="@string/menu_item_history" />
+        </menu>
+    </item>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_location"
+            android:icon="@mipmap/left_zl"
+            android:title="@string/menu_item_location" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@mipmap/left_gy"
+            android:title="@string/menu_item_about" />
+    </group>
+</menu>

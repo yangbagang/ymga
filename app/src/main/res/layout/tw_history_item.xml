@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/twHistoryUserImage"
+            android:layout_width="@dimen/item_image_size_dimen"
+            android:layout_height="@dimen/item_image_size_dimen"
+            android:contentDescription="@string/menu_user_avatar"
+            android:src="@mipmap/default_uimg" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/twHistoryUserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/menu_user_name"
+                android:textColor="@color/normal_item_title_color"
+                android:textSize="@dimen/item_title_size_dimen" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:id="@+id/twHistoryData"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tzHistoryTitle"
+                    android:textColor="@color/normal_item_data_color"
+                    android:textSize="@dimen/item_data_size_dimen" />
+
+                <ImageView
+                    android:id="@+id/twUnit"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@mipmap/cc" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/twHistoryTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="@string/tz_history_time"
+        android:textColor="@color/normal_item_data_color"
+        android:textSize="@dimen/item_data_size_dimen" />
+
+</LinearLayout>

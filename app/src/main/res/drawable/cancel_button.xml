@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Disabled -->
+    <item android:drawable="@mipmap/cancel_normal" android:state_enabled="false" android:state_pressed="false"/>
+    <!-- Pressed -->
+    <item android:drawable="@mipmap/cancel_click" android:state_enabled="true" android:state_pressed="true" android:textColor="@android:color/white"/>
+    <!-- Focused -->
+    <item android:drawable="@mipmap/cancel_click" android:state_enabled="true" android:state_focused="true" android:textColor="@android:color/white"/>
+    <!-- Default -->
+    <item android:drawable="@mipmap/cancel_normal" android:state_enabled="true" android:state_pressed="false"/>
+
+</selector>

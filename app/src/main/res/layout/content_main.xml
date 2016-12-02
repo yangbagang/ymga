@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/app_bar_main">
+
+    <ImageView
+        android:id="@+id/imgHome"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="@dimen/small_margin"
+        android:layout_marginRight="@dimen/small_margin"
+        android:layout_marginTop="@dimen/small_margin"
+        android:contentDescription="@string/imgHome_description"
+        android:scaleType="fitXY"
+        android:src="@mipmap/home" />
+
+    <View
+        android:id="@+id/viewMiddle"
+        android:layout_width="@dimen/small_margin"
+        android:layout_height="match_parent"
+        android:layout_below="@id/imgHome"
+        android:layout_centerHorizontal="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/imgHome"
+        android:layout_toLeftOf="@id/viewMiddle"
+        android:layout_marginLeft="@dimen/small_margin"
+        android:layout_marginTop="@dimen/small_margin"
+        android:layout_marginBottom="@dimen/small_margin"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/home_yd"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:background="@drawable/home_yd_bg"
+            android:gravity="center"
+            android:onClick="ydControl">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/home_yd" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/small_margin"
+                android:text="@string/home_button_yd"
+                android:textColor="#eee8ae"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/home_xy"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/small_margin"
+            android:layout_weight="2"
+            android:background="@drawable/home_xy_bg"
+            android:gravity="center"
+            android:onClick="xyControl">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/home_xy" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/small_margin"
+                android:text="@string/home_button_xy"
+                android:textColor="#eee8ae"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/home_tz"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/small_margin"
+            android:layout_weight="2"
+            android:background="@drawable/home_tz_bg"
+            android:gravity="center"
+            android:onClick="tzControl">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/home_tz" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/small_margin"
+                android:text="@string/home_button_tz"
+                android:textColor="#eee8ae"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/small_margin"
+            android:layout_weight="2.31">
+
+            <View
+                android:id="@+id/xttwMiddle"
+                android:layout_width="@dimen/small_margin"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true" />
+
+            <LinearLayout
+                android:id="@+id/home_xt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@id/xttwMiddle"
+                android:background="@drawable/home_xt_bg"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:onClick="coming">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/home_xt" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/small_margin"
+                    android:text="@string/home_button_xt"
+                    android:textColor="#eee8ae"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/home_tw"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@id/xttwMiddle"
+                android:background="@drawable/home_tw_bg"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:onClick="twControl">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/home_tw" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/small_margin"
+                    android:text="@string/home_button_tw"
+                    android:textColor="#eee8ae"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/home_jk"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/small_margin"
+            android:layout_weight="2"
+            android:background="@drawable/home_jk_bg"
+            android:gravity="center"
+            android:onClick="goWeiDian">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/home_jk" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/small_margin"
+                android:text="@string/home_button_cp"
+                android:textColor="#eee8ae"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/imgHome"
+        android:layout_toRightOf="@id/viewMiddle"
+        android:layout_marginRight="@dimen/small_margin"
+        android:layout_marginTop="@dimen/small_margin"
+        android:layout_marginBottom="@dimen/small_margin"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2">
+
+            <View
+                android:id="@+id/rightMiddle1"
+                android:layout_width="@dimen/small_margin"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true" />
+
+            <LinearLayout
+                android:id="@+id/home_ls"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@id/rightMiddle1"
+                android:background="@drawable/home_ls_bg"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:onClick="ydHistory">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/home_ls" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/small_margin"
+                    android:text="@string/home_button_ls"
+                    android:textColor="#eee8ae"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/home_fx"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@id/rightMiddle1"
+                android:background="@drawable/home_fx_bg"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:onClick="ydDiscover">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/home_fx" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/small_margin"
+                    android:text="@string/home_button_fx"
+                    android:textColor="#eee8ae"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/home_xx"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/small_margin"
+            android:layout_weight="1.8"
+            android:background="@drawable/home_xx_bg"
+            android:gravity="center"
+            android:onClick="enterMessage">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/home_xx" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/small_margin"
+                android:text="@string/home_button_jl"
+                android:textColor="#eee8ae"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/small_margin"
+            android:layout_weight="2">
+
+            <View
+                android:id="@+id/rightMiddle3"
+                android:layout_width="@dimen/small_margin"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true" />
+
+            <LinearLayout
+                android:id="@+id/home_jp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@id/rightMiddle3"
+                android:background="@drawable/home_jp_bg"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:onClick="myHonor">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/home_jp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/small_margin"
+                    android:text="@string/home_button_jp"
+                    android:textColor="#eee8ae"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/home_lt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@id/rightMiddle3"
+                android:background="@drawable/home_lt_bg"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:onClick="ydLeiTai">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/home_lt"
+                    android:id="@+id/imageView2"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/small_margin"
+                    android:text="@string/home_button_lt"
+                    android:textColor="#eee8ae"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/small_margin"
+            android:layout_weight="2">
+
+            <View
+                android:id="@+id/rightMiddle4"
+                android:layout_width="@dimen/small_margin"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true" />
+
+            <LinearLayout
+                android:id="@+id/home_wt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@id/rightMiddle4"
+                android:background="@drawable/home_wt_bg"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:onClick="locateMe">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/home_wd" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/small_margin"
+                    android:text="@string/home_button_wd"
+                    android:textColor="#eee8ae"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/home_jt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@id/rightMiddle4"
+                android:background="@drawable/home_jt_bg"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:onClick="coming">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/home_jt" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/small_margin"
+                    android:text="@string/home_button_jt"
+                    android:textColor="#eee8ae"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

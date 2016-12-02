@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/tzSettingBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tzSettingToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="@string/settings"/>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/userSettingBirthdayBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/tzSettingBarLayout"
+        android:layout_marginLeft="@dimen/normal_margin"
+        android:layout_marginRight="@dimen/normal_margin"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:background="#ffffff"
+        android:baselineAligned="false"
+        android:gravity="center_vertical" >
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="@string/userBirthday"
+            android:textSize="25sp" />
+
+        <EditText
+            android:id="@+id/userBirthday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/userBirthday" />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/userSettingSexBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/userSettingBirthdayBar"
+        android:layout_marginLeft="@dimen/normal_margin"
+        android:layout_marginRight="@dimen/normal_margin"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:background="#ffffff"
+        android:baselineAligned="false"
+        android:gravity="center_vertical" >
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="@string/userSexLabel"
+            android:textSize="25sp" />
+
+        <RadioGroup
+            android:id="@+id/userSexGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/register_label_type"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/userSexMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/male" >
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/userSexFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/female" >
+            </RadioButton>
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/userSettingBodyHighBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/userSettingSexBar"
+        android:layout_marginLeft="@dimen/normal_margin"
+        android:layout_marginRight="@dimen/normal_margin"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:background="#ffffff"
+        android:baselineAligned="false"
+        android:gravity="center_vertical" >
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="@string/body_high"
+            android:textSize="25sp" />
+
+        <EditText
+            android:id="@+id/userBodyHigh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:hint="@string/body_high_hint" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/userSettingBodyHighBar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:onClick="saveUserSetting"
+        android:text="@string/button_save" />
+
+</RelativeLayout>

@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 产品简介 -->
+    <string name="intro_page_1">intro page 1</string>
+    <string name="intro_page_2">intro page 2</string>
+    <string name="intro_page_3">intro page 3</string>
+    <string name="intro_page_4">intro page 4</string>
+    <string name="enterMainButtonText">开始体验</string>
+    <!-- 关于 -->
+    <string name="about_title">关于雍美关爱</string>
+    <string name="about_copyright">©2016 关爱科技 All Rights Reserved.</string>
+    <string name="about_version">(版本号)</string>
+
+    <!-- 注册、登录 -->
+    <string name="oum_logo">LOGO</string>
+    <string name="user_name">账号</string>
+    <string name="user_pwd">密码</string>
+    <string name="user_reset">重填</string>
+    <string name="user_login">登录</string>
+    <string name="user_register">注册</string>
+    <string name="user_forget_pwd">忘记密码</string>
+    <string name="user_login_note">己注册用户请点下方按钮。</string>
+    <string name="user_register_note">还未注册？请点下方按钮开始注册。</string>
+    <string name="register_label_type">注册类型</string>
+    <string name="userTypePerson">个人</string>
+    <string name="userTypeEnterPrise">企业</string>
+    <string name="userBirthday">生日</string>
+    <string name="userSexLabel">性别</string>
+    <string name="male">男</string>
+    <string name="female">女</string>
+    <string name="nick_name">昵称</string>
+    <string name="body_high">身高</string>
+    <string name="body_high_hint">身高，以米为单位。如1.70。</string>
+    <string name="user_register_label">亲，点击5秒注册会员。</string>
+
+    <!-- app -->
+    <string name="app_name">雍美关爱</string>
+    <string name="app_title">雍美关爱</string>
+
+    <!-- app menu -->
+    <string name="action_settings">设置</string>
+    <string name="button_arrow_back">返回</string>
+    <string name="search_button">搜索</string>
+    <string name="begin_date_label">开始时间</string>
+    <string name="end_date_label">结束时间</string>
+    <string name="pause">暂停</string>
+    <string name="resume">继续</string>
+    <string name="reset">重置</string>
+    <string name="settings">设置</string>
+    <string name="quit">退出</string>
+    <string name="button_save">保存</string>
+    <!-- 时间段 -->
+    <string name="period_day">日</string>
+    <string name="period_week">周</string>
+    <string name="period_month">月</string>
+    <string name="period_year">年</string>
+
+    <!-- drawerLayout -->
+    <string name="drawer_open">显示菜单</string>
+    <string name="drawer_close">隐藏菜单</string>
+
+    <!-- 分享 -->
+    <string name="share_wx">发送给朋友</string>
+    <string name="share_py">分享到朋友圈</string>
+    <!-- 弹出框 -->
+    <string name="title_alert">提示</string>
+    <string name="positiveButtonText">确定</string>
+    <string name="negativeButtonText">取消</string>
+
+    <!-- main layout -->
+    <string name="imgHome_description">Home image</string>
+    <string name="image_scan_description">image scan</string>
+    <string name="push_msg_description">push msg</string>
+    <string name="push_msg_tip_point_description">push msg tip point</string>
+    <!-- home image button -->
+    <string name="home_button_description">Home Button</string>
+    <string name="home_button_yd">运动监测</string>
+    <string name="home_button_xy">血压监测</string>
+    <string name="home_button_tz">体重监测</string>
+    <string name="home_button_xt">血糖监测</string>
+    <string name="home_button_tw">体温监测</string>
+    <string name="home_button_cp">健康商城</string>
+    <string name="home_button_wd">一键报警</string>
+    <string name="home_button_jt">健康讲堂</string>
+    <string name="home_button_ls">历史数据</string>
+    <string name="home_button_fx">血氧检测</string>
+    <string name="home_button_jl">心电检测</string>
+    <string name="home_button_jp">血脂检测</string>
+    <string name="home_button_sd">参数设定</string>
+    <string name="home_button_lt">尿液监测</string>
+
+    <!-- left menu item -->
+    <string name="left_menu_description">Left Menu</string>
+    <string name="left_menu_item_description">Left Menu Item</string>
+    <string name="menu_user_avatar">用户头像</string>
+    <string name="menu_user_name">用户名称</string>
+    <string name="menu_item_sport">运动</string>
+    <string name="menu_item_history">历史</string>
+    <string name="menu_item_discover">发现</string>
+    <string name="menu_item_location">定位</string>
+    <string name="location_me_title">我在这里</string>
+    <string name="gps_level_label">GPS信号：</string>
+    <string name="gps_level_value">弱</string>
+    <string name="menu_item_message">消息</string>
+    <string name="menu_item_friends">好友</string>
+    <string name="menu_item_circle">圈子</string>
+    <string name="menu_item_about">关于</string>
+
+    <!-- 上拉、下拉 -->
+    <string name="ylistview_header_hint_normal">下拉刷新</string>
+    <string name="ylistview_header_hint_ready">松开刷新数据</string>
+    <string name="ylistview_header_hint_loading">正在加载。。。</string>
+    <string name="ylistview_header_last_time">上次更新时间：</string>
+    <string name="ylistview_footer_hint_normal">查看更多</string>
+    <string name="ylistview_footer_hint_ready">松开载入更多</string>
+
+    <!-- bluetooth -->
+    <string name="title_paired_devices">己配对的设备</string>
+    <string name="title_found_devices">可用设备</string>
+    <string name="button_scan">扫描</string>
+    <string name="button_pair">配对</string>
+    <string name="button_dis_pair">解除绑定</string>
+    <string name="button_sync">同步</string>
+    <string name="bt_select_device">请选择配对设备</string>
+    <string name="bt_none_found">未发现可配对设备</string>
+    <string name="button_start">启动</string>
+    <string name="button_stop">停止</string>
+    <string name="button_send">发送</string>
+    <string name="button_cancel">取消</string>
+    <string name="button_connect">连接</string>
+    <string name="button_finish">完成</string>
+    <string name="button_pause">暂停</string>
+    <string name="button_resume">继续</string>
+    <string name="button_reset">重置</string>
+    <string name="button_setting">设置</string>
+    <string name="button_search">搜索</string>
+    <string name="button_del">删除</string>
+    <string name="button_add">增加</string>
+    <string name="label_not_pair">目前还未配对设备</string>
+    <string name="label_not_found">未找到己配对设备</string>
+    <string name="label_not_connect">目前还未连接设备</string>
+    <string name="label_connected">设备己连接</string>
+    <string name="label_paired">设备己配对</string>
+    <string name="label_wait_data">正在等待获取数据</string>
+    <string name="label_wait_order">准备就绪</string>
+    <string name="label_cancel">己取消</string>
+    <string name="label_stoped">己停止</string>
+    <string name="label_device_name">设备</string>
+    <string name="label_sync_progress">己完成 %1$s</string>
+
+    <!-- 血压控制模块 -->
+    <string name="xy_title">血压监测</string>
+    <string name="xy_label">血压</string>
+    <string name="xy_device_label">血压计</string>
+    <string name="xy_zz">请坐下并保持安静，手心向上并对着心脏水平前方。</string>
+    <string name="xy_measure_time">测量时间：</string>
+    <string name="xy_measure_data_1">0</string>
+    <string name="xy_measure_data_2">0</string>
+    <string name="xy_measure_data_3">0</string>
+    <string name="xy_measure_label_1">高压</string>
+    <string name="xy_measure_label_2">低压</string>
+    <string name="xy_measure_label_3">心率</string>
+    <string name="xy_home_bar_jiance">监测</string>
+    <string name="xy_home_bar_history">历史</string>
+    <string name="xy_home_bar_faxian">发现</string>
+    <string name="xy_home_bar_paimin">排名</string>
+    <string name="xyHistoryTitle">血压历史数据</string>
+    <string name="xyDiscoverTitle">好友数据</string>
+    <string name="xyPaiminTitle">排名</string>
+    <string name="xy_history_time">时间</string>
+    <string name="xyMeasureResult">结论：未知。</string>
+    <string name="xyTongji">统计图</string>
+    <string name="xyDeviceListLabel">请选择您的血压计型号</string>
+    <string name="xyDeviceUrion">ABP-U80/60</string>
+
+    <!-- 方向 -->
+    <string name="plus_history_left">上一条</string>
+    <string name="plus_history_right">下一条</string>
+    <string name="arrow_sub_left">sub</string>
+    <string name="arrow_add_right">add</string>
+    <string name="vertical_line">vertical line</string>
+    <string name="horizontal_line">horizontal line</string>
+
+    <!-- 运动模块 -->
+    <string name="yd_pj_title">配件运动</string>
+    <string name="yd_pj_sync_title">配件运动-同步模式</string>
+    <string name="yd_pj_real_title">配件运动-实时计步</string>
+    <string name="yd_pj_sync_label">同步模式</string>
+    <string name="yd_pj_real_label">实时计步</string>
+    <string name="yd_pj_sync_button">读取并保存历史数据</string>
+    <string name="yd_pj_label">计步器</string>
+    <string name="yd_gps_title">GPS运动</string>
+    <string name="yd_setting_title">运动设置</string>
+    <string name="yd_switch">运动切换</string>
+    <string name="yd_main">运动</string>
+    <string name="yd_history">历史</string>
+    <string name="yd_discover">发现</string>
+    <string name="yd_paimin">排名</string>
+    <string name="yd_paimin_firends_only">朋友圈排名</string>
+    <string name="yd_paimin_all">全部排名</string>
+    <string name="yd_pj_yd">今日运动</string>
+    <string name="yd_pj_sm">今日睡眠</string>
+    <string name="yd_pj_switch_label">显示数据</string>
+    <string name="ydDeviceListLabel">请选择您的计步器型号</string>
+    <string name="ydDeviceAp">AP1708</string>
+    <string name="ydDeviceAp2">AP2000</string>
+    <string name="ydPJYdSum">0%</string>
+    <string name="ydPJSmSum">--</string>
+    <string name="ydHistoryTitle">运动历史数据</string>
+    <string name="ydDiscoverTitle">好友数据</string>
+    <string name="style_setting_title">手环设置</string>
+    <string name="style_info_save">保存个人信息到手环</string>
+    <string name="style_aim_save">保存运动目标到手环</string>
+    <string name="style_syncTime_label">将手机当前时间设置到手环</string>
+    <string name="style_syncTime">同步手环时间</string>
+    <string name="chart_steps_label">步数</string>
+    <string name="chart_distance_label">里程</string>
+    <string name="chart_calories_label">卡路里</string>
+    <string name="chart_sleep_label">睡眠</string>
+    <string name="chart_finish_label">达成率</string>
+    <string name="sync_status_label1">单日最高记录</string>
+    <string name="sync_status_label2">本次完成</string>
+    <string name="sync_status_label3">单日目标完成</string>
+    <string name="sync_status_label4">千里之行 始于足下</string>
+    <string name="sync_status_label5">0步</string>
+    <string name="sync_status_label6">0%</string>
+    <!-- 计步 -->
+    <string name="pedometerTitle">计步</string>
+    <string name="pedometerStepLabel">步数</string>
+    <string name="pedometerStepValue">0</string>
+    <string name="pedometerDistanceLabel">路程(千米)</string>
+    <string name="pedometerDistanceValue">0</string>
+    <string name="pedometerPaceLabel">步数/分钟</string>
+    <string name="pedometerPaceValue">0</string>
+    <string name="pedometerCaloriesLabel">千卡</string>
+    <string name="pedometerCaloriesValue">0</string>
+    <string name="pedometerSpeedLabel">千米/小时</string>
+    <string name="pedometerSpeedValue">0</string>
+    <string name="pedometerFinishLabel">达成率</string>
+    <string name="pedometerFinishValue">0</string>
+    <string name="pedometerTimeLabel">运动时间</string>
+    <string name="pedometerTimeValue">0</string>
+    <string name="pedometerStartButton">开始</string>
+    <string name="pedometerStopButton">停止</string>
+    <string name="pedometerStartState">开始</string>
+    <string name="pedometerStopState">停止</string>
+    <string name="notification_subtitle">运动</string>
+    <!-- 计步设置 -->
+    <string name="pedometerPreferenceTitle">计步设置</string>
+    <string name="pedometerBodyWeightTitle">体重</string>
+    <string name="pedometerBodyWeightLabel">体重(千克)</string>
+    <string name="pedometerBodyWeightValue">60</string>
+    <string name="pedometerBodyWeightDesc">设置体重，单位为千克</string>
+    <string name="pedometerStepLengthTitle">步长</string>
+    <string name="pedometerStepLengthLabel">步长(米)</string>
+    <string name="pedometerStepLengthValue">0.55</string>
+    <string name="pedometerStepLengthDesc">平均一步的长度，单位为米</string>
+    <string name="pedometerSportTypeTitle">方式</string>
+    <string name="pedometerSportTypeLabel">运动方式</string>
+    <string name="pedometerSportTypeWalk">走路</string>
+    <string name="pedometerSportTypeRun">跑步</string>
+    <string name="pedometerSportTypeDesc">选择运动的方式，走路或跑步</string>
+    <string name="pedometerSportAimTitle">目标</string>
+    <string name="pedometerSportAimDesc">设定运动目标。单位是步</string>
+    <!-- 睡眠 -->
+    <string name="sleepDeepLabel">深睡</string>
+    <string name="sleepDeepValue">0h0\'</string>
+    <string name="sleepShallowLabel">浅睡</string>
+    <string name="sleepShallowValue">0h0\'</string>
+    <string name="sleepJitteryLabel">不安</string>
+    <string name="sleepJitteryValue">0h0\'</string>
+
+    <!-- 体重模块 -->
+    <string name="tzTitle">体重监测</string>
+    <string name="tzLabel">(KG)</string>
+    <string name="tzValue">0</string>
+    <string name="tzPecentLabel">--</string>
+    <string name="tzZFValue">脂肪率(%)</string>
+    <string name="tzJRValue">肌肉率(%)</string>
+    <string name="tzSFValue">体水分率(%)</string>
+    <string name="tzBMIValue">BMI指数</string>
+    <string name="tzQZValue">去脂体重</string>
+    <string name="tzGGValue">骨骼重量(%)</string>
+    <string name="tzNZValue">内脏脂肪等级</string>
+    <string name="tzJCValue">基础代谢</string>
+    <string name="tzSTValue">身体年龄</string>
+    <string name="tzJILabel">--级</string>
+    <string name="tzShuiLabel">--岁</string>
+    <string name="tzZLLabel">--KG</string>
+    <string name="tzCalLabel">--Kcal</string>
+    <string name="tz_main">体重</string>
+    <string name="tz_history">历史</string>
+    <string name="tz_discover">发现</string>
+    <string name="tz_paimin">排名</string>
+    <string name="tz_result">检查结果</string>
+    <string name="tz_device_list_label">请选择您的体重计型号</string>
+    <string name="tz_device_label">体重计</string>
+    <string name="tz_device_lefu">AS-CW/CF</string>
+    <string name="tz_device_furuik">AS-F16</string>
+    <string name="tzHistoryTitle">体重历史数据</string>
+    <string name="tzDiscoverTitle">好友数据</string>
+    <string name="tz_history_time">测量时间</string>
+    <string name="chart_tz_label">体重</string>
+    <string name="chart_bmi_label">BMI</string>
+    <string name="chart_zf_label">脂肪率</string>
+    <string name="chart_nz_label">内脏脂肪</string>
+    <string name="chart_jr_label">肌肉率</string>
+    <string name="chart_sf_label">水分率</string>
+    <string name="chart_qz_label">去脂体重</string>
+    <string name="chart_gg_label">骨骼重量</string>
+    <string name="chart_jc_label">基础代谢</string>
+    <!-- 信息模块 -->
+    <string name="msgMainTitle">消息</string>
+    <string name="msgFriendTitle">好友</string>
+    <string name="msgCircleTitle">圈子</string>
+    <string name="msgAboutMeTitle">我</string>
+    <string name="msg_main">消息</string>
+    <string name="msg_friend">好友</string>
+    <string name="msg_friend_label">通讯录</string>
+    <string name="msg_friend_new">新的朋友</string>
+    <string name="msg_circle">圈子</string>
+    <string name="msg_circle_label">我的圈子</string>
+    <string name="msg_circle_new">圈子邀请</string>
+    <string name="msg_about_me">我</string>
+    <string name="msg_content">消息内容</string>
+    <string name="friendAcceptButton">接受</string>
+    <string name="friendRejectButton">拒绝</string>
+    <string name="circleMsgButton">群聊</string>
+    <string name="circleShowButton">详情</string>
+    <string name="searchNameHint">请输入登录名或呢称进行搜索</string>
+    <string name="searchUserResult">搜索结果</string>
+    <string name="searchUserTitle">查找并添加好友</string>
+    <string name="addFriendTitle">添加好友</string>
+    <string name="addFriendNameLabel">好友名称:</string>
+    <string name="addFriendReasonLabel">附言</string>
+    <string name="addFriendButton">添加好友</string>
+    <string name="createCircleTitle">创建圈子</string>
+    <string name="circleNameLabel">圈子名称</string>
+    <string name="circleMemLabel">圈子说明</string>
+    <string name="circleCreateButton">创建</string>
+    <string name="circleDetailTitle">圈子详情</string>
+    <string name="circleMemberLabel">圈子成员</string>
+    <string name="circleRemoveButton">移除</string>
+    <string name="circleSearchAddTitle">查找并邀请成员</string>
+
+    <!-- 荣耀排名 -->
+    <string name="honor_title">你好健康荣耀</string>
+    <string name="honor_item_yd">运动</string>
+    <string name="honor_pm">我的江湖排名</string>
+    <string name="honor_pm_no">0</string>
+    <string name="honor_pm_jx">授衔</string>
+    <string name="honor_pm_label1">第</string>
+    <string name="honor_pm_label2">名</string>
+    <string name="honor_jx">我的授衔</string>
+
+    <!-- 体温模块 -->
+    <string name="tw_main">体温</string>
+    <string name="tw_history">历史</string>
+    <string name="tw_discover">发现</string>
+    <string name="tw_record">趋势</string>
+    <string name="twTitle">体温监测</string>
+    <string name="tw_device_label">体温计</string>
+    <string name="twValue">00.0</string>
+    <string name="twNotice">将体温计对准测温目标，离测温目标不超过1厘米。</string>
+    <string name="twMeasureTimeLabel">测温时间</string>
+    <string name="twDeviceListLabel">请选择您的体温计型号</string>
+    <string name="twHistoryTitle">历史数据</string>
+    <string name="userTWUnitLabel">习惯温度单位</string>
+    <string name="twQushiTitle">温度趋势</string>
+    <string name="twQushiSplite">至</string>
+    <string name="twDeviceIr">AT-U106</string>
+
+    <!-- 权限 -->
+    <string name="permission_read_phone_state">允许读取手机通话状态</string>
+    <string name="permission_write_external_storage">允许访问手机存储</string>
+    <string name="permission_access_coarse_location">允许访问手机位置信息</string>
+    <string name="permission_request_notice">%1$s 需要 %2$s 的权限</string>
+    <string name="permission_setting_notice">请在设置--应用--%s--权限菜单下进行授权。</string>
+</resources>

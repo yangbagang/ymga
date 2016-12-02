@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#393a3f</color>
+    <color name="colorPrimaryDark">#303135</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!-- main layout -->
+    <color name="msgbox_bk_color">#ff5a5060</color>
+
+    <!-- 选项背景色 -->
+    <color name="bottomBar_bg_color">#fcfcfc</color>
+    <!-- 当前选项色 -->
+    <color name="bottomBar_click_textColor_color">#47c019</color>
+    <!-- 非当前选项色 -->
+    <color name="bottomBar_normal_textColor_color">#999999</color>
+    <!-- normal -->
+    <color name="normal_label_color">#999999</color>
+    <color name="normal_value_color">#666666</color>
+    <!-- normal list item -->
+    <color name="normal_item_title_color">#000000</color>
+    <color name="normal_item_data_color">#8c8a8c</color>
+    <!-- 灰色背景 -->
+    <color name="normal_bg_color">#ebebeb</color>
+</resources>
