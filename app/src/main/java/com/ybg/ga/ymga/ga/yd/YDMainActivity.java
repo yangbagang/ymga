@@ -92,6 +92,10 @@ public class YDMainActivity extends AppCompatActivity implements OnResultAvailab
 
 	@Override
 	public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+		if (grantResults == null || grantResults.length == 0) {
+			super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+			return;
+		}
 		if (requestCode == AppConstat.PERMISSION_REQUEST_CODE_READ_PHONE_STATE) {
 			if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 				//TODO

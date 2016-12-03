@@ -262,7 +262,9 @@ public class TWMainActivity extends SubActivity {
                             //FE FD AA A0 0D 0A
                             //byte[] cmd = {(-2), (-3), (-86), (-96), 13, 10};
                             byte[] cmd = {(byte) 0xfe, (byte) 0xfd, (byte) 0xaa, (byte) 0xa0, 0x0d, 0x0a};
-                            irDeviceService.writeCharactCmd(cmd);
+                            if (irDeviceService != null) {
+                                irDeviceService.writeCharactCmd(cmd);
+                            }
                             jiance = true;
                             break;
                         case IRDeviceService.STATE_CONNECTING:
