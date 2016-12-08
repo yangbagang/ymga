@@ -84,9 +84,9 @@
     <string name="home_button_wd">一键报警</string>
     <string name="home_button_jt">健康讲堂</string>
     <string name="home_button_ls">历史数据</string>
-    <string name="home_button_fx">血氧检测</string>
-    <string name="home_button_jl">心电检测</string>
-    <string name="home_button_jp">血脂检测</string>
+    <string name="home_button_fx">血氧监测</string>
+    <string name="home_button_jl">心电监测</string>
+    <string name="home_button_jp">血脂监测</string>
     <string name="home_button_sd">参数设定</string>
     <string name="home_button_lt">尿液监测</string>
 
