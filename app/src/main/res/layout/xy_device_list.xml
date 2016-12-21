@@ -27,7 +27,7 @@
         android:layout_below="@+id/xyDeviceListBarLayout"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:background="@color/bottomBar_bg_color"
+        android:background="@drawable/selected_sharp_bg2"
         android:gravity="center_horizontal"
         android:onClick="selectXYDevice"
         android:orientation="vertical"
@@ -36,7 +36,27 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/xyDeviceUrion"
+            android:text="@string/xyDeviceUrion_bt"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/xyUrionLabel2"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/xyUrionLabel1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/selected_sharp_bg2"
+        android:gravity="center_horizontal"
+        android:onClick="selectXYDevice"
+        android:orientation="vertical"
+        android:paddingTop="15dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/xyDeviceUrion_ble"
             android:textSize="15sp" />
     </LinearLayout>
 

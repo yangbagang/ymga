@@ -23,6 +23,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.lefu.bluetoothauotpair.BluetoolUtil;
+import com.lefu.bluetoothauotpair.BluetoothTools;
+import com.lefu.bluetoothauotpair.PollingUtils;
+import com.lefu.bluetoothauotpair.ScaneBluetoothService;
 import com.ybg.ga.ymga.R;
 import com.ybg.ga.ymga.YbgApp;
 import com.ybg.ga.ymga.bt.BTAction;
@@ -35,8 +39,10 @@ import com.ybg.ga.ymga.ga.tz.furuik.BitMapTools;
 import com.ybg.ga.ymga.ga.tz.furuik.BluetoothService;
 import com.ybg.ga.ymga.ga.tz.furuik.Confing;
 import com.ybg.ga.ymga.ga.tz.furuik.MyApplication;
+import com.ybg.ga.ymga.ga.tz.lefu.CRUtil;
 import com.ybg.ga.ymga.ga.tz.lefu.LefuService;
 import com.ybg.ga.ymga.ga.tz.lefu.ParseUtil;
+import com.ybg.ga.ymga.ga.tz.lefu.TZCFRecoder;
 import com.ybg.ga.ymga.user.UserPreferences;
 import com.ybg.ga.ymga.util.AppConstat;
 
@@ -178,12 +184,23 @@ public class TZMainActivity extends SubActivity {
             if (!bluetoothAdapter.isEnabled()) {
                 bluetoothAdapter.enable();
             }
-            if (TzUtil.TZ_DEVICE_LEFU.equalsIgnoreCase(tzDevice)) {//体脂秤lefu
+            if (TzUtil.TZ_DEVICE_LEFU_BLE.equalsIgnoreCase(tzDevice)) {//体脂秤lefu
                 if (lefuService != null) {
                     lefuService.scanBLEDevice(true);
                 } else {
                     getApplicationContext().bindService(new Intent(TZMainActivity.this, LefuService.class),
                             lefuConnection, Context.BIND_AUTO_CREATE);
+                }
+            } else if (TzUtil.TZ_DEVICE_LEFU_BT.equalsIgnoreCase(tzDevice)) {
+                if ("启动".equals(action)) {
+                    // 还未绑定，开始绑定过程
+                    PollingUtils.startPollingService(TZMainActivity.this, 10,
+                            ScaneBluetoothService.class, ScaneBluetoothService.ACTION);
+                    tzPJOperator.setText("停止");
+                } else {
+                    PollingUtils.stopPollingService(TZMainActivity.this,
+                            ScaneBluetoothService.class, ScaneBluetoothService.ACTION);
+                    tzPJOperator.setText("启动");
                 }
             } else if (TzUtil.TZ_DEVICE_FURUIK.equalsIgnoreCase(tzDevice)) {//体脂秤furuik
                 MyApplication.supportBle = true;
@@ -237,12 +254,19 @@ public class TZMainActivity extends SubActivity {
 
             // 注册广播
             IntentFilter intentFilter = new IntentFilter();
-            //lefu
+            //lefu ble
             intentFilter.addAction(BTAction.getConnectAction(BTPrefix.TZ));
             intentFilter.addAction(BTAction.getConnectedSuccess(BTPrefix.TZ));
             intentFilter.addAction(BTAction.getDisConnected(BTPrefix.TZ));
             intentFilter.addAction(BTAction.getSendErrorAction(BTPrefix.TZ));
             intentFilter.addAction(BTAction.getSendDataAction(BTPrefix.TZ));
+            //lefu bt
+            intentFilter.addAction(BluetoothTools.ACTION_NOT_FOUND_SERVER);
+            intentFilter.addAction(BluetoothTools.ACTION_FOUND_DEVICE);
+            intentFilter.addAction(BluetoothTools.ACTION_DATA_TO_GAME);
+            intentFilter.addAction(BluetoothTools.ACTION_CONNECT_SUCCESS);
+            intentFilter.addAction(BluetoothTools.ACTION_CONNECT_ERROR);
+            intentFilter.addAction(BluetoothTools.ACTION_READ_DATA);
             //furuik
             intentFilter.addAction(Confing.BLE_NOTiFY);
             intentFilter.addAction(Confing.BLE_Fat_Data);
@@ -258,13 +282,21 @@ public class TZMainActivity extends SubActivity {
 
     @Override
     protected void onStop() {
-        if (TzUtil.TZ_DEVICE_LEFU.equals(tzPreference.getTzDeviceModel())) {
+        if (TzUtil.TZ_DEVICE_LEFU_BLE.equals(tzPreference.getTzDeviceModel())) {
             if (lefuService != null) {
                 lefuService.stop();
             }
             getApplicationContext().unbindService(lefuConnection);
+        } else if (TzUtil.TZ_DEVICE_LEFU_BT.equals(tzPreference.getTzDeviceModel())) {
+            PollingUtils.stopPollingService(this, ScaneBluetoothService.class,
+                    ScaneBluetoothService.ACTION);
+            if (null != BluetoolUtil.mBluetoothAdapter) {
+                BluetoolUtil.mBluetoothAdapter.disable();
+            }
         } else if (TzUtil.TZ_DEVICE_FURUIK.equals(tzPreference.getTzDeviceModel())) {
-            getApplicationContext().unbindService(furuikConnection);
+            if (MyApplication.bleService != null) {
+                getApplicationContext().unbindService(furuikConnection);
+            }
         }
 
         if (null != this.serviceIntent)
@@ -300,8 +332,47 @@ public class TZMainActivity extends SubActivity {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             tzPJOperator.setEnabled(true);
-            //lefu
-            if (BTAction.getConnectAction(BTPrefix.TZ).equals(action)) {
+            //lefu bt
+            if (BluetoothTools.ACTION_START_DISCOVERY.equals(action)) {
+                tzPJName.setText("正在扫描..");
+            } else if (BluetoothTools.ACTION_NOT_FOUND_SERVER.equals(action)) {
+                tzPJName.setText("未连接!");
+            } else if (BluetoothTools.ACTION_FOUND_DEVICE.equals(action)) {
+                if (null != BluetoolUtil.lastDevice) {
+                    String name = tzPreference.getTzDeviceName();
+                    tzPJName.setText("发现设备:  " + name);
+                }
+            } else if (BluetoothTools.ACTION_CONNECT_SUCCESS.equals(action)) {
+                if (null != BluetoolUtil.lastDevice) {
+                    String address = BluetoolUtil.lastDevice.getAddress();
+                    String name = tzPreference.getTzDeviceName();
+                    tzPJName.setText("己连接:  " + name);
+                    if (!tzPreference.hasAssign()) {
+                        tzPreference.setHasAssign(true);
+                    }
+                    tzPreference.setTzDeviceAddr(address);
+                    tzPreference.setHasAssign(true);
+                }
+            } else if (BluetoothTools.ACTION_DATA_TO_GAME.equals(action)) {
+                if (null != BluetoolUtil.lastDevice) {
+                    String name = tzPreference.getTzDeviceName();
+                    tzPJName.setText("接收到数据:  " + name);
+                }
+            } else if (BluetoothTools.ACTION_CONNECT_ERROR.equals(action)) {
+                if (null != BluetoolUtil.lastDevice) {
+                    String name = tzPreference.getTzDeviceName();
+                    tzPJName.setText("连接失败:  " + name);
+                }
+            } else if (BluetoothTools.ACTION_READ_DATA.equals(action)) {
+                String msg = intent.getStringExtra("readMessage");
+                TZCFRecoder recoder = CRUtil.parseMessage(msg);
+                TzBean tzBean = new TzBean(recoder.getWeight(), recoder.getBodyFat(), recoder.getJirou(),
+                        recoder.getBodyWater(), recoder.getBMI(), recoder.getQZValue(), recoder.getBone(),
+                        recoder.getNeiZhang(), recoder.getCalorie(), 0);
+                processTzData(tzBean);
+            }
+            //lefu ble
+            else if (BTAction.getConnectAction(BTPrefix.TZ).equals(action)) {
                 tzPJName.setText("正在连接..");
             } else if (BTAction.getConnectedSuccess(BTPrefix.TZ).equals(action)) {
                 String name = tzPreference.getTzDeviceName();

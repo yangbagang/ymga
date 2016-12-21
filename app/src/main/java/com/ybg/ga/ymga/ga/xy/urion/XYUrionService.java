@@ -8,6 +8,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import android.content.Intent;
+import android.os.Binder;
+import android.os.IBinder;
 
 import com.ybg.ga.ymga.bt.AbstractBTService;
 import com.ybg.ga.ymga.bt.BTAction;
@@ -138,5 +140,20 @@ public class XYUrionService extends AbstractBTService {
 				// 尝试关闭连接时出现了，算了，让它去吧。不理了。
 			}
 		}
+	}
+
+	@Override
+	public IBinder onBind(Intent intent) {
+		return binder;
+	}
+
+	private XYUrionBinder binder = new XYUrionBinder();
+
+	public class XYUrionBinder extends Binder {
+
+		public XYUrionService getService() {
+			return XYUrionService.this;
+		}
+
 	}
 }

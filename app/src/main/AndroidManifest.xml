@@ -34,8 +34,6 @@
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
-    <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
-
     <application
         android:name=".YbgApplication"
         android:allowBackup="true"
@@ -85,6 +83,8 @@
         <service android:name=".ga.tz.TZDataService"/>
         <service android:name=".ga.tz.furuik.BluetoothService" />
         <service android:name=".ga.tz.lefu.LefuService" />
+        <service android:name="com.lefu.bluetoothauotpair.TimeService" />
+        <service android:name="com.lefu.bluetoothauotpair.ScaneBluetoothService" />
 
         <activity android:name=".ga.yd.YDWelcomeActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ga.yd.YDMainActivity" android:screenOrientation="portrait"/>

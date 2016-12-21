@@ -28,12 +28,14 @@ import android.widget.TextView;
 import com.ybg.ga.ymga.R;
 import com.ybg.ga.ymga.YbgApp;
 import com.ybg.ga.ymga.bt.BTAction;
+import com.ybg.ga.ymga.bt.BTDeviceListActivity;
 import com.ybg.ga.ymga.bt.BTMessage;
 import com.ybg.ga.ymga.bt.BTPrefix;
 import com.ybg.ga.ymga.bt.BTStatus;
 import com.ybg.ga.ymga.ga.activity.SubActivity;
 import com.ybg.ga.ymga.ga.preference.XYPreference;
 import com.ybg.ga.ymga.ga.xy.urion.UrionService;
+import com.ybg.ga.ymga.ga.xy.urion.XYUrionService;
 import com.ybg.ga.ymga.util.AppConstat;
 
 import java.text.SimpleDateFormat;
@@ -65,7 +67,10 @@ public class XYMainActivity extends SubActivity {
 
     private XYDataService xyDataService = null;
     private UrionService urionService = null;
+    private XYUrionService xyUrionService = null;
     private Intent bindIntent = null;
+
+    private String xyModel = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,23 +117,30 @@ public class XYMainActivity extends SubActivity {
         if (xyPreference.hasAssign()) {
             // 己绑定，显示设备名称。准备连接操作
             xyPJName.setText(xyPreference.getXyDeviceName());
+            xyPJOperator.setText(BTStatus.BT_BUTTONS[BTStatus.BT_STATU_NOT_START]);
         } else {
             // 未绑定，提示需要绑定。准备进行设备绑定操作。
-            xyPreference.setXyDeviceModel("urion");
-            xyPreference.setXyDeviceName("ABP-U80/60");
             xyPJName.setText(BTStatus.BT_LABELS[BTStatus.BT_STATU_NOT_ASSIGN]);
+            xyPJOperator.setText(BTStatus.BT_BUTTONS[BTStatus.BT_STATU_NOT_ASSIGN]);
         }
-        xyPJOperator
-                .setText(BTStatus.BT_BUTTONS[BTStatus.BT_STATU_NOT_START]);
     }
 
     public void xyOperation(View view) {
+        String operator = ((Button) view).getText().toString();
+        if (xyModel == null && BTStatus.BT_BUTTONS[BTStatus.BT_STATU_NOT_ASSIGN].equals(operator)) {
+            // 还未绑定，开始绑定过程
+            Intent intent = new Intent(XYMainActivity.this,
+                    XYDeviceListActivity.class);
+            getParent().startActivityForResult(intent,
+                    AppConstat.XY_DEVICE_REQUEST_CODE);
+            return;
+        }
         String message = getString(R.string.permission_request_notice, getString(R.string
                 .app_name), getString(R.string.permission_access_coarse_location));
         boolean hasRight = ybgApp.checkPermission(XYMainActivity.this, Manifest.permission
                         .ACCESS_COARSE_LOCATION,
                 message, AppConstat.PERMISSION_REQUEST_CODE_ACCESS_COARSE_LOCATION);
-        if (hasRight && urionService != null) {
+        if (hasRight && (urionService != null) || (xyUrionService != null)) {
             // 尝试启动设备并获取数据
             startMeasure();
             // 禁用此按钮，避免重复启动
@@ -153,6 +165,43 @@ public class XYMainActivity extends SubActivity {
                 ybgApp.showMessage(getApplicationContext(), message1 + message2);
             }
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == AppConstat.XY_DEVICE_REQUEST_CODE
+                && resultCode == AppConstat.XY_DEVICE_RESULT_CODE) {
+            // 体重设备列表
+            String xyDeviceName = data.getExtras().getString("xyDeviceName");
+            String xyDeviceModel = data.getExtras().getString("xyDeviceModel");
+            if (!"".equals(xyDeviceName) && !"".equals(xyDeviceModel)) {
+                // 记录下设备名称及代号
+                xyPreference.setXyDeviceName(xyDeviceName);
+                xyPreference.setXyDeviceModel(xyDeviceModel);
+                xyPJName.setText(xyDeviceName);
+                xyModel = xyDeviceModel;
+                if ("urion_bt".equalsIgnoreCase(xyDeviceModel)) {
+                    // 开始扫描蓝牙设备
+                    Intent intent = new Intent(this, BTDeviceListActivity.class);
+                    getParent().startActivityForResult(intent,
+                            AppConstat.BT_FOUND_REQUEST_CODE);
+                } else {
+                    // 开启单模
+                    xyPJOperator.performClick();
+                }
+            }
+        } else if (requestCode == AppConstat.BT_FOUND_REQUEST_CODE
+                && resultCode == AppConstat.BT_FOUND_RESULT_CODE) {
+            // 取得需要连接的蓝牙地址
+            String xyDeviceAddr = data.getExtras().getString(
+                    BTAction.EXTRA_DEVICE_ADDRESS);
+            xyPreference.setXyDeviceAddr(xyDeviceAddr);
+            // 修改状态，准备连接
+            xyPJName.setText(BTStatus.BT_LABELS[BTStatus.BT_STATU_NOT_START]);
+            xyPJOperator
+                    .setText(BTStatus.BT_BUTTONS[BTStatus.BT_STATU_NOT_START]);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -190,6 +239,8 @@ public class XYMainActivity extends SubActivity {
             // 开启后台程序
             Intent intent = new Intent(XYMainActivity.this, UrionService.class);
             getApplication().bindService(intent, urionConnection, Context.BIND_AUTO_CREATE);
+            Intent intent2 = new Intent(XYMainActivity.this, XYUrionService.class);
+            getApplication().bindService(intent2, xyUrionConnection, Context.BIND_AUTO_CREATE);
             // 注册广播
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction(BTAction.getSendInfoAction(BTPrefix.XY));
@@ -216,6 +267,9 @@ public class XYMainActivity extends SubActivity {
         if (null != urionService) {
             getApplication().unbindService(urionConnection);
         }
+        if (null != xyUrionService) {
+            getApplication().unbindService(xyUrionConnection);
+        }
         getApplication().unregisterReceiver(xyMeasureBroadcastReceiver);
         getApplication().unbindService(mConnection);
         super.onStop();
@@ -223,9 +277,16 @@ public class XYMainActivity extends SubActivity {
 
     private void startMeasure() {
         // 发送测量指令
-        if (urionService != null) {
-            urionService.scanBLEDevice(true);
+        if ("urion_bt".equalsIgnoreCase(xyPreference.getXyDeviceModel())) {
+            if (xyUrionService != null) {
+                xyUrionService.connectAndStart(xyPreference.getXyDeviceAddr());
+            }
+        } else {
+            if (urionService != null) {
+                urionService.scanBLEDevice(true);
+            }
         }
+
     }
 
     private void stopMeasure() {
@@ -335,6 +396,20 @@ public class XYMainActivity extends SubActivity {
         @Override
         public void onServiceDisconnected(ComponentName name) {
             urionService = null;
+        }
+
+    };
+
+    private ServiceConnection xyUrionConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            xyUrionService = ((XYUrionService.XYUrionBinder) service).getService();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            xyUrionService = null;
         }
 
     };

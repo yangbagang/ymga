@@ -28,8 +28,11 @@ public class XYDeviceListActivity extends AppCompatActivity {
 	public void selectXYDevice(View view) {
 		Intent intent = new Intent();
 		if(view.getId() == R.id.xyUrionLabel1) {
-			intent.putExtra("xyDeviceName", "ABP-U80/60");
-			intent.putExtra("xyDeviceModel", "urion");
+			intent.putExtra("xyDeviceName", "ABP-U80/60 BT");
+			intent.putExtra("xyDeviceModel", "urion_bt");
+		} else if(view.getId() == R.id.xyUrionLabel2) {
+			intent.putExtra("xyDeviceName", "ABP-U80/60 BLE");
+			intent.putExtra("xyDeviceModel", "urion_ble");
 		}
 		setResult(AppConstat.XY_DEVICE_RESULT_CODE, intent);
 		finish();

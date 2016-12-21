@@ -200,6 +200,8 @@ public class UserSettingActivity extends AppCompatActivity {
 			// 上传设置至服务器
 			if (userPreference.hasLogin()) {
 				userSettingService.saveSetting();
+			} else {
+				ybgApp.showMessage(getApplicationContext(), "设置己保存！");
 			}
 		} catch (NumberFormatException e) {
 			ybgApp.showMessage(getApplicationContext(), "身高不是有效数据！");

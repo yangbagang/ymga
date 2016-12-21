@@ -172,7 +172,8 @@
     <string name="xyMeasureResult">结论：未知。</string>
     <string name="xyTongji">统计图</string>
     <string name="xyDeviceListLabel">请选择您的血压计型号</string>
-    <string name="xyDeviceUrion">ABP-U80/60</string>
+    <string name="xyDeviceUrion_bt">ABP-U80/60 BT</string>
+    <string name="xyDeviceUrion_ble">ABP-U80/60 BLE</string>
 
     <!-- 方向 -->
     <string name="plus_history_left">上一条</string>
@@ -296,8 +297,9 @@
     <string name="tz_result">检查结果</string>
     <string name="tz_device_list_label">请选择您的体重计型号</string>
     <string name="tz_device_label">体重计</string>
-    <string name="tz_device_lefu">AS-CW/CF</string>
-    <string name="tz_device_furuik">AS-F16</string>
+    <string name="tz_device_lefu_bt">AS-CW/CF BT</string>
+    <string name="tz_device_lefu_ble">AS-CW/CF BLE</string>
+    <string name="tz_device_furuik">AS-F16 BLE</string>
     <string name="tzHistoryTitle">体重历史数据</string>
     <string name="tzDiscoverTitle">好友数据</string>
     <string name="tz_history_time">测量时间</string>

@@ -33,11 +33,6 @@ public abstract class AbstractBTService extends Service {
     protected Intent sendInfoIntent = null;
 
     @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
-
-    @Override
     public void onCreate() {
         if (!bluetoothAdapter.isEnabled()) {
             bluetoothAdapter.enable();
@@ -82,7 +77,7 @@ public abstract class AbstractBTService extends Service {
         }
     }
 
-    protected void connectAndStart(String btAddr) {
+    public void connectAndStart(String btAddr) {
         connect(btAddr);
         start();
     }

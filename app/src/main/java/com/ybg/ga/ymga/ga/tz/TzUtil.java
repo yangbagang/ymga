@@ -28,6 +28,7 @@ public class TzUtil {
 
     }
 
-    public final static String TZ_DEVICE_LEFU = "lefu1";
+    public final static String TZ_DEVICE_LEFU_BT = "lefu_bt";
+    public final static String TZ_DEVICE_LEFU_BLE = "lefu_ble";
     public final static String TZ_DEVICE_FURUIK = "furuik1";
 }
