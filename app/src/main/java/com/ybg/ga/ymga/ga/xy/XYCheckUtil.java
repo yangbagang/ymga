@@ -79,6 +79,10 @@ public class XYCheckUtil {
 		} catch (NumberFormatException e) {
 			value = 0;
 		}
+		return getImageResourceId(type, value);
+	}
+
+	public static int getImageResourceId(int type, int value) {
 		int comp = 0;
 		if (type == 0) {
 			comp = isHighCorrect(value);
@@ -88,12 +92,12 @@ public class XYCheckUtil {
 			comp = heartRate(value);
 		}
 		switch (comp) {
-		case -1:
-			return R.mipmap.low;
-		case 1:
-			return R.mipmap.high;
-		default:
-			return R.mipmap.normal;
+			case -1:
+				return R.mipmap.low;
+			case 1:
+				return R.mipmap.high;
+			default:
+				return R.mipmap.normal;
 		}
 	}
 	
@@ -101,15 +105,19 @@ public class XYCheckUtil {
 		try {
 			int high = Integer.valueOf(strHigh);
 			int low = Integer.valueOf(strLow);
+			int heart = Integer.valueOf(strHeart);
 			// 暂时不计较心跳
-			//int heart = Integer.valueOf(strHeart);
-			if (isHighCorrect(high) == 0 && isLowCorrect(low) == 0) {
-				return "测试结果：您的血压灰常正常！请保持！";
-			} else {
-				return "测试结果：您的血压欠正常，需要留意。";
-			}
+			return getNoticeMsg(high, low, heart);
 		} catch (NumberFormatException e) {
 			return "测试结果：未知。";
+		}
+	}
+
+	public static String getNoticeMsg(int high, int low, int heart) {
+		if (isHighCorrect(high) == 0 && isLowCorrect(low) == 0) {
+			return "测试结果：您的血压灰常正常！请保持！";
+		} else {
+			return "测试结果：您的血压欠正常，需要留意。";
 		}
 	}
 }

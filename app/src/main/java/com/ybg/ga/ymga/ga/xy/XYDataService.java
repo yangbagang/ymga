@@ -293,7 +293,7 @@ public class XYDataService extends Service {
 	}
 
 	public class XYDataBinder extends Binder {
-		XYDataService getService() {
+		public XYDataService getService() {
 			return XYDataService.this;
 		}
 	}

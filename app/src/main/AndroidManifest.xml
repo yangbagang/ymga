@@ -71,6 +71,8 @@
         <activity android:name=".ga.xy.XySettingActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ga.xy.XYHistorySearchActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ga.xy.XYDeviceListActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ga.xy.urion.XYUrionBLEActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ga.xy.urion.XYUrionBTActivity" android:screenOrientation="portrait" />
         <service android:name=".ga.xy.urion.UrionService"/>
         <service android:name=".ga.xy.XYDataService"/>
 

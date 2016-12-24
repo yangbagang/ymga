@@ -32,6 +32,9 @@ public class AppConstat {
     public static int XY_DEVICE_REQUEST_CODE = 120;
     public static int XY_DEVICE_RESULT_CODE = 121;
     public static int XY_DEVICE_CANCEL_CODE = 122;
+    public static int XY_MEASURE_REQUEST_CODE = 130;
+    public static int XY_MEASURE_RESULT_CODE = 131;
+    public static int XY_MEASURE_CANCEL_CODE = 132;
 
     // BlueTooth
     public static int BT_FOUND_REQUEST_CODE = 200;

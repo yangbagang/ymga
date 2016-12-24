@@ -35,6 +35,8 @@ import com.ybg.ga.ymga.bt.BTStatus;
 import com.ybg.ga.ymga.ga.activity.SubActivity;
 import com.ybg.ga.ymga.ga.preference.XYPreference;
 import com.ybg.ga.ymga.ga.xy.urion.UrionService;
+import com.ybg.ga.ymga.ga.xy.urion.XYUrionBLEActivity;
+import com.ybg.ga.ymga.ga.xy.urion.XYUrionBTActivity;
 import com.ybg.ga.ymga.ga.xy.urion.XYUrionService;
 import com.ybg.ga.ymga.util.AppConstat;
 
@@ -61,16 +63,11 @@ public class XYMainActivity extends SubActivity {
     private ImageView xyMeasureImage2 = null;
     private ImageView xyMeasureImage3 = null;
 
-    // 使用进度条提示当前正在读取数据
-    private ProgressDialog readProgressDialog = null;
-    private ProgressBar xyProgressBar = null;
-
-    private XYDataService xyDataService = null;
-    private UrionService urionService = null;
-    private XYUrionService xyUrionService = null;
-    private Intent bindIntent = null;
-
     private String xyModel = null;
+
+    @SuppressLint("SimpleDateFormat")
+    private SimpleDateFormat sdf = new SimpleDateFormat(
+            "yyyy-MM-dd HH:mm:ss");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,9 +105,6 @@ public class XYMainActivity extends SubActivity {
         xyMeasureImage1 = (ImageView) findViewById(R.id.xyMeasureImage1);
         xyMeasureImage2 = (ImageView) findViewById(R.id.xyMeasureImage2);
         xyMeasureImage3 = (ImageView) findViewById(R.id.xyMeasureImage3);
-        // 测量中的值
-        xyProgressBar = (ProgressBar) findViewById(R.id.xyProgressBar);
-        xyProgressBar.setMax(300);
     }
 
     private void initEvent() {
@@ -140,15 +134,15 @@ public class XYMainActivity extends SubActivity {
         boolean hasRight = ybgApp.checkPermission(XYMainActivity.this, Manifest.permission
                         .ACCESS_COARSE_LOCATION,
                 message, AppConstat.PERMISSION_REQUEST_CODE_ACCESS_COARSE_LOCATION);
-        if (hasRight && (urionService != null) || (xyUrionService != null)) {
-            // 尝试启动设备并获取数据
-            startMeasure();
-            // 禁用此按钮，避免重复启动
-            view.setEnabled(false);
-            // 启动进度条
-            readProgressDialog = ybgApp.getProgressDialog(XYMainActivity.this,
-                    "正在测量...");
-            readProgressDialog.show();
+        if (hasRight) {
+            String model = xyPreference.getXyDeviceModel();
+            if ("urion_bt".equalsIgnoreCase(model)) {
+                Intent intent = new Intent(XYMainActivity.this, XYUrionBTActivity.class);
+                getParent().startActivityForResult(intent, AppConstat.XY_MEASURE_REQUEST_CODE);
+            } else {
+                Intent intent = new Intent(XYMainActivity.this, XYUrionBLEActivity.class);
+                getParent().startActivityForResult(intent, AppConstat.XY_MEASURE_REQUEST_CODE);
+            }
         }
     }
 
@@ -187,7 +181,8 @@ public class XYMainActivity extends SubActivity {
                             AppConstat.BT_FOUND_REQUEST_CODE);
                 } else {
                     // 开启单模
-                    xyPJOperator.performClick();
+                    Intent intent = new Intent(XYMainActivity.this, XYUrionBLEActivity.class);
+                    getParent().startActivityForResult(intent, AppConstat.XY_MEASURE_REQUEST_CODE);
                 }
             }
         } else if (requestCode == AppConstat.BT_FOUND_REQUEST_CODE
@@ -196,10 +191,28 @@ public class XYMainActivity extends SubActivity {
             String xyDeviceAddr = data.getExtras().getString(
                     BTAction.EXTRA_DEVICE_ADDRESS);
             xyPreference.setXyDeviceAddr(xyDeviceAddr);
-            // 修改状态，准备连接
-            xyPJName.setText(BTStatus.BT_LABELS[BTStatus.BT_STATU_NOT_START]);
-            xyPJOperator
-                    .setText(BTStatus.BT_BUTTONS[BTStatus.BT_STATU_NOT_START]);
+            // 开启双模
+            Intent intent = new Intent(XYMainActivity.this, XYUrionBTActivity.class);
+            getParent().startActivityForResult(intent, AppConstat.XY_MEASURE_REQUEST_CODE);
+        } else if (requestCode == AppConstat.XY_MEASURE_REQUEST_CODE
+                && resultCode == AppConstat.XY_MEASURE_RESULT_CODE) {
+            int sys = data.getExtras().getInt("sys");
+            int dia = data.getExtras().getInt("dia");
+            int pul = data.getExtras().getInt("pul");
+            // 显示数据
+            xyMeasureData1.setText(sys);
+            xyMeasureData2.setText(dia);
+            xyMeasureData3.setText(pul);
+            xyMeasureTimeLabel.setText("测量时间：" + sdf.format(new Date()));
+            // 显示是否正常
+            xyMeasureImage1.setImageResource(XYCheckUtil
+                    .getImageResourceId(0, sys));
+            xyMeasureImage2.setImageResource(XYCheckUtil
+                    .getImageResourceId(1, dia));
+            xyMeasureImage3.setImageResource(XYCheckUtil
+                    .getImageResourceId(2, pul));
+            xyMeasureResult.setText(XYCheckUtil.getNoticeMsg(sys,
+                    dia, pul));
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -236,181 +249,8 @@ public class XYMainActivity extends SubActivity {
             if (!bluetoothAdapter.isEnabled()) {
                 bluetoothAdapter.enable();
             }
-            // 开启后台程序
-            Intent intent = new Intent(XYMainActivity.this, UrionService.class);
-            getApplication().bindService(intent, urionConnection, Context.BIND_AUTO_CREATE);
-            Intent intent2 = new Intent(XYMainActivity.this, XYUrionService.class);
-            getApplication().bindService(intent2, xyUrionConnection, Context.BIND_AUTO_CREATE);
-            // 注册广播
-            IntentFilter intentFilter = new IntentFilter();
-            intentFilter.addAction(BTAction.getSendInfoAction(BTPrefix.XY));
-            intentFilter.addAction(BTAction.getSendDataAction(BTPrefix.XY));
-            intentFilter.addAction(BTAction.getSendErrorAction(BTPrefix.XY));
-            intentFilter.addAction(BTAction.sendProgressAction(BTPrefix.XY));
-            intentFilter.addAction(BTAction.getConnectAction(BTPrefix.XY));
-            intentFilter.addAction(BTAction.getConnectedSuccess(BTPrefix.XY));
-            intentFilter.addAction(BTAction.getDisConnected(BTPrefix.XY));
-            getApplication().registerReceiver(xyMeasureBroadcastReceiver,
-                    intentFilter);
+
         }
-        bindIntent = new Intent(XYMainActivity.this, XYDataService.class);
-        getApplication().bindService(bindIntent, mConnection,
-                Context.BIND_AUTO_CREATE);
-        super.onStart();
     }
 
-    @Override
-    protected void onStop() {
-        // 停止测量
-        stopMeasure();
-        // 停止接收广播
-        if (null != urionService) {
-            getApplication().unbindService(urionConnection);
-        }
-        if (null != xyUrionService) {
-            getApplication().unbindService(xyUrionConnection);
-        }
-        getApplication().unregisterReceiver(xyMeasureBroadcastReceiver);
-        getApplication().unbindService(mConnection);
-        super.onStop();
-    }
-
-    private void startMeasure() {
-        // 发送测量指令
-        if ("urion_bt".equalsIgnoreCase(xyPreference.getXyDeviceModel())) {
-            if (xyUrionService != null) {
-                xyUrionService.connectAndStart(xyPreference.getXyDeviceAddr());
-            }
-        } else {
-            if (urionService != null) {
-                urionService.scanBLEDevice(true);
-            }
-        }
-
-    }
-
-    private void stopMeasure() {
-        // 发送停止指令
-    }
-
-    private BroadcastReceiver xyMeasureBroadcastReceiver = new BroadcastReceiver() {
-
-        @SuppressLint("SimpleDateFormat")
-        private SimpleDateFormat sdf = new SimpleDateFormat(
-                "yyyy-MM-dd HH:mm:ss");
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            if (BTAction.getConnectAction(BTPrefix.XY).equals(action)) {
-                xyPJName.setText("正在连接..");
-            } else if (BTAction.getConnectedSuccess(BTPrefix.XY).equals(action)) {
-                String name = xyPreference.getXyDeviceName();
-                xyPJName.setText("己连接:  " + name);
-                if (!xyPreference.hasAssign()) {
-                    xyPreference.setHasAssign(true);
-                }
-                if (urionService != null) {
-                    urionService.sendStartCmd();
-                }
-            } else if (BTAction.getDisConnected(BTPrefix.XY).equals(action)) {
-                xyPJName.setText("连接己断开");
-            } else if (action.equalsIgnoreCase(BTAction
-                    .getSendErrorAction(BTPrefix.XY))) {
-                String info = intent.getExtras().getString(BTAction.INFO);
-                ybgApp.showMessage(getApplicationContext(), info);
-                readProgressDialog.dismiss();
-                xyPJOperator.setEnabled(true);
-            } else if (action.equalsIgnoreCase(BTAction
-                    .getSendInfoAction(BTPrefix.XY))) {
-                String info = intent.getExtras().getString(BTAction.INFO);
-                ybgApp.showMessage(getApplicationContext(), info);
-            } else if (action.equalsIgnoreCase(BTAction
-                    .getSendDataAction(BTPrefix.XY))) {
-                String data = intent.getExtras().getString(BTAction.DATA);
-                if (!xyPreference.hasAssign()) {
-                    // 还未设置绑定状态，先设置绑定状态，避免重复动作
-                    xyPreference.setHasAssign(true);
-                }
-                String[] xyData = data.split(",");
-                // 显示数据
-                xyMeasureData1.setText(xyData[0]);
-                xyMeasureData2.setText(xyData[1]);
-                xyMeasureData3.setText(xyData[2]);
-                xyMeasureTimeLabel.setText("测量时间：" + sdf.format(new Date()));
-                // 显示是否正常
-                xyMeasureImage1.setImageResource(XYCheckUtil
-                        .getImageResourceId(0, xyData[0]));
-                xyMeasureImage2.setImageResource(XYCheckUtil
-                        .getImageResourceId(1, xyData[1]));
-                xyMeasureImage3.setImageResource(XYCheckUtil
-                        .getImageResourceId(2, xyData[2]));
-                xyMeasureResult.setText(XYCheckUtil.getNoticeMsg(xyData[0],
-                        xyData[1], xyData[2]));
-                readProgressDialog.dismiss();
-                xyPJOperator.setEnabled(true);
-
-                // 保存存数据
-                try {
-                    xyDataService.save(Integer.valueOf(xyData[0]),
-                            Integer.valueOf(xyData[1]),
-                            Integer.valueOf(xyData[2]));
-                } catch (Exception e) {
-                    ybgApp.showMessage(getApplicationContext(), "数据保存失败");
-                }
-
-                if (urionService != null) {
-                    urionService.sendStopCmd();
-                }
-            } else if (action.equals(BTAction.sendProgressAction(BTPrefix.XY))) {
-                int progressValue = intent.getExtras()
-                        .getInt(BTAction.PROGRESS);
-                xyProgressBar.setProgress(progressValue);
-            }
-        }
-
-    };
-
-    private ServiceConnection mConnection = new ServiceConnection() {
-
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            xyDataService = ((XYDataService.XYDataBinder) service).getService();
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            // nothing
-            xyDataService = null;
-        }
-
-    };
-
-    private ServiceConnection urionConnection = new ServiceConnection() {
-
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            urionService = ((UrionService.UrionBinder) service).getService();
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            urionService = null;
-        }
-
-    };
-
-    private ServiceConnection xyUrionConnection = new ServiceConnection() {
-
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            xyUrionService = ((XYUrionService.XYUrionBinder) service).getService();
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            xyUrionService = null;
-        }
-
-    };
 }
