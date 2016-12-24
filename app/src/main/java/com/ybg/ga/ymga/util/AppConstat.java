@@ -47,6 +47,9 @@ public class AppConstat {
     public static int TZ_DEVICE_REQUEST_CODE = 320;
     public static int TZ_DEVICE_RESULT_CODE = 321;
     public static int TZ_DEVICE_CANCEL_CODE = 322;
+    public static int TZ_MEASURE_REQUEST_CODE = 330;
+    public static int TZ_MEASURE_RESULT_CODE = 331;
+    public static int TZ_MEASURE_CANCEL_CODE = 332;
 
     // 运动
     public static int YD_DEVICE_REQUEST_CODE = 400;

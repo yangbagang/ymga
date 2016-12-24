@@ -82,6 +82,9 @@
         <activity android:name=".ga.tz.TZSettingActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ga.tz.TZHistorySearchActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ga.tz.TZDeviceListActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ga.tz.lefu.TZLefuBLEActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ga.tz.lefu.TZLefuBTActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ga.tz.furuik.TZFurikBLEActivity" android:screenOrientation="portrait" />
         <service android:name=".ga.tz.TZDataService"/>
         <service android:name=".ga.tz.furuik.BluetoothService" />
         <service android:name=".ga.tz.lefu.LefuService" />

@@ -354,7 +354,7 @@ public class TZDataService extends Service {
 	}
 
 	public class TZDataBinder extends Binder {
-		TZDataService getService() {
+		public TZDataService getService() {
 			return TZDataService.this;
 		}
 	}

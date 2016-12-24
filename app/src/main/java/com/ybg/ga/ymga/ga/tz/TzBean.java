@@ -1,9 +1,13 @@
 package com.ybg.ga.ymga.ga.tz;
 
+import java.io.Serializable;
+
 /**
  * Created by yangbagang on 15/10/10.
  */
-public class TzBean {
+public class TzBean implements Serializable {
+
+    private static final long serialVersionUID = -8598198009968467076L;
 
     private float tzValue;
     private float tzZFValue;

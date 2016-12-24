@@ -39,10 +39,13 @@ import com.ybg.ga.ymga.ga.tz.furuik.BitMapTools;
 import com.ybg.ga.ymga.ga.tz.furuik.BluetoothService;
 import com.ybg.ga.ymga.ga.tz.furuik.Confing;
 import com.ybg.ga.ymga.ga.tz.furuik.MyApplication;
+import com.ybg.ga.ymga.ga.tz.furuik.TZFurikBLEActivity;
 import com.ybg.ga.ymga.ga.tz.lefu.CRUtil;
 import com.ybg.ga.ymga.ga.tz.lefu.LefuService;
 import com.ybg.ga.ymga.ga.tz.lefu.ParseUtil;
 import com.ybg.ga.ymga.ga.tz.lefu.TZCFRecoder;
+import com.ybg.ga.ymga.ga.tz.lefu.TZLefuBLEActivity;
+import com.ybg.ga.ymga.ga.tz.lefu.TZLefuBTActivity;
 import com.ybg.ga.ymga.user.UserPreferences;
 import com.ybg.ga.ymga.util.AppConstat;
 
@@ -59,7 +62,6 @@ public class TZMainActivity extends SubActivity {
     private TZPreference tzPreference = TZPreference.getInstance();
     private UserPreferences userPreference = UserPreferences.getInstance();
     private YbgApp ybgApp = YbgApp.getInstance();
-    private Intent serviceIntent = null;
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     private TextView tzPJName = null;
@@ -87,10 +89,6 @@ public class TZMainActivity extends SubActivity {
     private ImageView tzNZImage = null;
     private ImageView tzJCImage = null;
     private ImageView tzSTImage = null;
-
-    private TZDataService tzDataService = null;
-    private LefuService lefuService = null;
-    private Intent bindIntent = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,59 +159,22 @@ public class TZMainActivity extends SubActivity {
             Intent intent = new Intent(this, TZDeviceListActivity.class);
             getParent().startActivityForResult(intent,
                     AppConstat.TZ_DEVICE_REQUEST_CODE);
-        } else if (BTStatus.BT_BUTTONS[BTStatus.BT_STATU_NOT_START]
-                .equals(operator)) {
-            // 尝试启动设备并获取数据
+        } else if (BTStatus.BT_BUTTONS[BTStatus.BT_STATU_NOT_START].equals(operator)) {
             startMeasure();
-            // 禁用此按钮，避免重复启动
-            view.setEnabled(false);
         }
     }
 
     private void startMeasure() {
-        String tzDevice = tzPreference.getTzDeviceModel();
-        String action = tzPJOperator.getText().toString();
-        if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
-            BluetoothManager mBluetoothManager = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
-            if (mBluetoothManager == null) {
-                ybgApp.showMessage(getApplicationContext(), "您的手机当前不支持蓝牙4.0，无法连接体指秤。");
-                MyApplication.supportBle = false;
-                return;
-            }
-            BluetoothAdapter bluetoothAdapter = mBluetoothManager.getAdapter();
-            if (!bluetoothAdapter.isEnabled()) {
-                bluetoothAdapter.enable();
-            }
-            if (TzUtil.TZ_DEVICE_LEFU_BLE.equalsIgnoreCase(tzDevice)) {//体脂秤lefu
-                if (lefuService != null) {
-                    lefuService.scanBLEDevice(true);
-                } else {
-                    getApplicationContext().bindService(new Intent(TZMainActivity.this, LefuService.class),
-                            lefuConnection, Context.BIND_AUTO_CREATE);
-                }
-            } else if (TzUtil.TZ_DEVICE_LEFU_BT.equalsIgnoreCase(tzDevice)) {
-                if ("启动".equals(action)) {
-                    // 还未绑定，开始绑定过程
-                    PollingUtils.startPollingService(TZMainActivity.this, 10,
-                            ScaneBluetoothService.class, ScaneBluetoothService.ACTION);
-                    tzPJOperator.setText("停止");
-                } else {
-                    PollingUtils.stopPollingService(TZMainActivity.this,
-                            ScaneBluetoothService.class, ScaneBluetoothService.ACTION);
-                    tzPJOperator.setText("启动");
-                }
-            } else if (TzUtil.TZ_DEVICE_FURUIK.equalsIgnoreCase(tzDevice)) {//体脂秤furuik
-                MyApplication.supportBle = true;
-                MyApplication.mBluetoothAdapter = bluetoothAdapter;
-                if (MyApplication.bleService != null) {
-                    scanFuruikDevice(true);
-                } else {
-                    getApplicationContext().bindService(new Intent(TZMainActivity.this, BluetoothService.class), furuikConnection, Context.BIND_AUTO_CREATE);
-                }
-            }
-        } else {
-            ybgApp.showMessage(getApplicationContext(), "您的手机当前不支持蓝牙4.0，无法连接体指秤。");
-            MyApplication.supportBle = false;
+        String model = tzPreference.getTzDeviceModel();
+        if (TzUtil.TZ_DEVICE_FURUIK.equalsIgnoreCase(model)) {
+            Intent intent = new Intent(this, TZFurikBLEActivity.class);
+            getParent().startActivityForResult(intent, AppConstat.TZ_MEASURE_REQUEST_CODE);
+        } else if (TzUtil.TZ_DEVICE_LEFU_BLE.equalsIgnoreCase(model)) {
+            Intent intent = new Intent(this, TZLefuBLEActivity.class);
+            getParent().startActivityForResult(intent, AppConstat.TZ_MEASURE_REQUEST_CODE);
+        } else if (TzUtil.TZ_DEVICE_LEFU_BT.equalsIgnoreCase(model)) {
+            Intent intent = new Intent(this, TZLefuBTActivity.class);
+            getParent().startActivityForResult(intent, AppConstat.TZ_MEASURE_REQUEST_CODE);
         }
     }
 
@@ -234,12 +195,17 @@ public class TZMainActivity extends SubActivity {
                         .setText(BTStatus.BT_BUTTONS[BTStatus.BT_STATU_NOT_START]);
             }
             startMeasure();
+        } else if (requestCode == AppConstat.TZ_MEASURE_REQUEST_CODE
+                && resultCode == AppConstat.TZ_MEASURE_RESULT_CODE) {
+            TzBean tzBean = (TzBean) data.getSerializableExtra("tzBean");
+            processTzData(tzBean);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
     protected void onStart() {
+        super.onStart();
         // 开启蓝牙
         BluetoothAdapter bluetoothAdapter = BluetoothAdapter
                 .getDefaultAdapter();
@@ -251,59 +217,11 @@ public class TZMainActivity extends SubActivity {
             if (!bluetoothAdapter.isEnabled()) {
                 bluetoothAdapter.enable();
             }
-
-            // 注册广播
-            IntentFilter intentFilter = new IntentFilter();
-            //lefu ble
-            intentFilter.addAction(BTAction.getConnectAction(BTPrefix.TZ));
-            intentFilter.addAction(BTAction.getConnectedSuccess(BTPrefix.TZ));
-            intentFilter.addAction(BTAction.getDisConnected(BTPrefix.TZ));
-            intentFilter.addAction(BTAction.getSendErrorAction(BTPrefix.TZ));
-            intentFilter.addAction(BTAction.getSendDataAction(BTPrefix.TZ));
-            //lefu bt
-            intentFilter.addAction(BluetoothTools.ACTION_NOT_FOUND_SERVER);
-            intentFilter.addAction(BluetoothTools.ACTION_FOUND_DEVICE);
-            intentFilter.addAction(BluetoothTools.ACTION_DATA_TO_GAME);
-            intentFilter.addAction(BluetoothTools.ACTION_CONNECT_SUCCESS);
-            intentFilter.addAction(BluetoothTools.ACTION_CONNECT_ERROR);
-            intentFilter.addAction(BluetoothTools.ACTION_READ_DATA);
-            //furuik
-            intentFilter.addAction(Confing.BLE_NOTiFY);
-            intentFilter.addAction(Confing.BLE_Fat_Data);
-            intentFilter.addAction(Confing.BLE_DISCONNECT);
-            intentFilter.addAction(Confing.BLE_ChangeWei_Data);
-            intentFilter.addAction(Confing.BLE_Confirm_Data);
-            registerReceiver(broadcastReceiver, intentFilter);
         }
-        bindIntent = new Intent(TZMainActivity.this, TZDataService.class);
-        getApplicationContext().bindService(bindIntent, mConnection, Context.BIND_AUTO_CREATE);
-        super.onStart();
     }
 
     @Override
     protected void onStop() {
-        if (TzUtil.TZ_DEVICE_LEFU_BLE.equals(tzPreference.getTzDeviceModel())) {
-            if (lefuService != null) {
-                lefuService.stop();
-            }
-            getApplicationContext().unbindService(lefuConnection);
-        } else if (TzUtil.TZ_DEVICE_LEFU_BT.equals(tzPreference.getTzDeviceModel())) {
-            PollingUtils.stopPollingService(this, ScaneBluetoothService.class,
-                    ScaneBluetoothService.ACTION);
-            if (null != BluetoolUtil.mBluetoothAdapter) {
-                BluetoolUtil.mBluetoothAdapter.disable();
-            }
-        } else if (TzUtil.TZ_DEVICE_FURUIK.equals(tzPreference.getTzDeviceModel())) {
-            if (MyApplication.bleService != null) {
-                getApplicationContext().unbindService(furuikConnection);
-            }
-        }
-
-        if (null != this.serviceIntent)
-            stopService(this.serviceIntent);
-
-        unregisterReceiver(broadcastReceiver);
-        getApplicationContext().unbindService(mConnection);
         super.onStop();
     }
 
@@ -324,206 +242,6 @@ public class TZMainActivity extends SubActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            tzPJOperator.setEnabled(true);
-            //lefu bt
-            if (BluetoothTools.ACTION_START_DISCOVERY.equals(action)) {
-                tzPJName.setText("正在扫描..");
-            } else if (BluetoothTools.ACTION_NOT_FOUND_SERVER.equals(action)) {
-                tzPJName.setText("未连接!");
-            } else if (BluetoothTools.ACTION_FOUND_DEVICE.equals(action)) {
-                if (null != BluetoolUtil.lastDevice) {
-                    String name = tzPreference.getTzDeviceName();
-                    tzPJName.setText("发现设备:  " + name);
-                }
-            } else if (BluetoothTools.ACTION_CONNECT_SUCCESS.equals(action)) {
-                if (null != BluetoolUtil.lastDevice) {
-                    String address = BluetoolUtil.lastDevice.getAddress();
-                    String name = tzPreference.getTzDeviceName();
-                    tzPJName.setText("己连接:  " + name);
-                    if (!tzPreference.hasAssign()) {
-                        tzPreference.setHasAssign(true);
-                    }
-                    tzPreference.setTzDeviceAddr(address);
-                    tzPreference.setHasAssign(true);
-                }
-            } else if (BluetoothTools.ACTION_DATA_TO_GAME.equals(action)) {
-                if (null != BluetoolUtil.lastDevice) {
-                    String name = tzPreference.getTzDeviceName();
-                    tzPJName.setText("接收到数据:  " + name);
-                }
-            } else if (BluetoothTools.ACTION_CONNECT_ERROR.equals(action)) {
-                if (null != BluetoolUtil.lastDevice) {
-                    String name = tzPreference.getTzDeviceName();
-                    tzPJName.setText("连接失败:  " + name);
-                }
-            } else if (BluetoothTools.ACTION_READ_DATA.equals(action)) {
-                String msg = intent.getStringExtra("readMessage");
-                TZCFRecoder recoder = CRUtil.parseMessage(msg);
-                TzBean tzBean = new TzBean(recoder.getWeight(), recoder.getBodyFat(), recoder.getJirou(),
-                        recoder.getBodyWater(), recoder.getBMI(), recoder.getQZValue(), recoder.getBone(),
-                        recoder.getNeiZhang(), recoder.getCalorie(), 0);
-                processTzData(tzBean);
-            }
-            //lefu ble
-            else if (BTAction.getConnectAction(BTPrefix.TZ).equals(action)) {
-                tzPJName.setText("正在连接..");
-            } else if (BTAction.getConnectedSuccess(BTPrefix.TZ).equals(action)) {
-                String name = tzPreference.getTzDeviceName();
-                tzPJName.setText("己连接:  " + name);
-                if (!tzPreference.hasAssign()) {
-                    tzPreference.setHasAssign(true);
-                }
-                tzPreference.setHasAssign(true);
-                lefuService.sendUserInfo();
-            } else if (BTAction.getDisConnected(BTPrefix.TZ).equals(action)) {
-                tzPJName.setText("连接己断开");
-            } else if (BTAction.getSendErrorAction(BTPrefix.TZ).equals(action)) {
-                String errorCode = intent.getExtras().getString("error_code");
-                if ("31".equals(errorCode)) {
-                    tzPJName.setText("蓝牙错误");
-                } else if ("33".equals(errorCode)) {
-                    tzPJName.setText("脂肪错误");
-                }
-            } else if (BTAction.getSendDataAction(BTPrefix.TZ).equals(action)) {
-                byte[] tzHex = intent.getExtras().getByteArray("tzHex");
-                TzBean tzBean = ParseUtil.getTzBeanFromHex(tzHex);
-                if (tzBean != null) {
-                    processTzData(tzBean);
-                }
-                lefuService.sendStopCmd();
-            } else if (action.equals(Confing.BLE_NOTiFY)) {
-                tzPJName.setText("设备己连接");
-
-                tzPreference.setTzDeviceAddr(MyApplication.Address);
-                tzPreference.setHasAssign(true);
-
-                //链接成功后发送人体参数
-                //发送一次人体参数
-                boolean sendUser = true;
-                if (sendUser) {
-
-                    long userid = userPreference.getId();
-                    int userhigh = (int) (userPreference.getBodyHigh() * 100);
-                    int userage = userPreference.getAge();
-                    int usersex = userPreference.getUserSex();
-                    Log.e("dddd", "发送人体参数 ： ++++ " + userid + " " + userhigh + " " + userage + " " + usersex);
-                    byte jiaoyan = (byte) (0x02 + 0xE2 + 0x04 + userid + userhigh + userage + usersex);
-                    byte[] sum = {0x02, (byte) 0xE2, 0x04,
-                            (byte) userid, (byte) userhigh, (byte) userage, (byte) usersex
-                            , jiaoyan, (byte) 0xaa};
-                    Log.e("fat", "发送人体参数指令 ： ++++ " + BitMapTools.bytesToHexString(sum));
-
-                    if (MyApplication.bleService != null) {
-                        MyApplication.bleService.sendLight(sum);
-                    }
-                }
-            } else if (action.equals(Confing.BLE_DISCONNECT)) {//蓝牙断开
-                tzPJName.setText("设备连接己断开");
-                //MyApplication.bleService.connect(tzPreference.getTzDeviceAddr());
-                scanFuruikDevice(true);
-            } else if (action.equals(Confing.BLE_Fat_Data)) {//获取数据
-                float weight = intent.getFloatExtra("weight", 0);
-                float bmi = intent.getFloatExtra("bmi", 0);
-                float fat = intent.getFloatExtra("fat", 0);
-                float humidity = intent.getFloatExtra("humidity", 0);
-                float muscle = intent.getFloatExtra("muscle", 0);
-                float bone = intent.getFloatExtra("bone", 0);
-                float visceral = intent.getFloatExtra("visceral", 0);
-                float basal = intent.getFloatExtra("basal", 0);
-                int age = intent.getIntExtra("age", 0);
-                float qzValue = (1 - fat / 100) * weight;
-                TzBean tzBean = new TzBean(weight, fat, muscle, humidity, bmi, qzValue, bone, (int) visceral, (int) basal, age);
-                processTzData(tzBean);
-            } else if (action.equals(Confing.BLE_ChangeWei_Data)) {//测量中的体重
-                float wei = intent.getFloatExtra("changewei", 0);
-                tzValue.setText("" + wei);
-            } else if (action.equals(Confing.BLE_Confirm_Data)) {//测量稳定后的体重
-                float wei = intent.getFloatExtra("confirmwei", 0);
-                tzValue.setText("" + wei);
-            }
-        }
-
-    };
-
-    private ServiceConnection mConnection = new ServiceConnection() {
-
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            tzDataService = ((TZDataService.TZDataBinder) service).getService();
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            tzDataService = null;
-        }
-
-    };
-
-    private ServiceConnection furuikConnection = new ServiceConnection() {
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            MyApplication.bleService = null;
-        }
-
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            MyApplication.bleService = ((BluetoothService.BLEBinder) service).getService();
-            if (!MyApplication.bleService.initialize()) {
-                Log.e("BLE", "初始化失败");
-            } else {
-                Log.e("BLE", "初始化成功");
-                scanFuruikDevice(true);
-                tzPJOperator.setEnabled(false);
-            }
-        }
-    };
-
-    private ServiceConnection lefuConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            lefuService = ((LefuService.LefuBinder) service).getService();
-            lefuService.scanBLEDevice(true);
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            lefuService = null;
-        }
-    };
-
-    private void scanFuruikDevice(boolean scanble) {
-        if (scanble) {
-            tzPJName.setText("正在查找设备...");
-            if (MyApplication.mBluetoothAdapter.isEnabled()) {
-                if (!mScanning) {
-                    // 经过预定扫描期后停止扫描
-                    mHandler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            mScanning = false;
-                            MyApplication.mBluetoothAdapter.stopLeScan(startScanCallback);
-                            tzPJName.setText("未连接!");
-                            tzPJOperator.setEnabled(true);
-                        }
-                    }, SCAN_PERIOD);
-                    mScanning = true;
-                    MyApplication.mBluetoothAdapter.startLeScan(startScanCallback);
-                    tzPJOperator.setEnabled(false);
-                }
-            }
-        } else {
-            tzPJName.setText("停止查找设备...");
-            if (MyApplication.mBluetoothAdapter.isEnabled()) {
-                MyApplication.mBluetoothAdapter.stopLeScan(stopScanCallback);
-            }
-        }
     }
 
     private void processTzData(TzBean tzBean) {
@@ -603,53 +321,7 @@ public class TZMainActivity extends SubActivity {
                 tzBean.setTzSTValue(0);
             }
             tzSTImage.setImageResource(R.mipmap.none);
-
-            // 保存数据
-            tzDataService.save(tzBean.getTzValue(),
-                    tzBean.getTzZFValue(), tzBean.getTzJRValue(),
-                    tzBean.getTzSFValue(), tzBean.getTzBMIValue(), tzBean.getTzQZValue(), tzBean.getTzGGValue(),
-                    tzBean.getTzNZValue(), tzBean.getTzJCValue(), tzBean.getTzSTValue());
         }
     }
 
-    // 搜索蓝牙回调
-    @SuppressLint("NewApi")
-    BluetoothAdapter.LeScanCallback startScanCallback = new BluetoothAdapter.LeScanCallback() {
-
-        @Override
-        public void onLeScan(final BluetoothDevice device, int rssi, byte[] scanRecord) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    String deviceName = device.getName();
-                    String deviceAddress = device.getAddress();
-                    System.out.println("Name: " + deviceName + ", addr: " + deviceAddress);
-                    if (tzPreference.hasAssign()) {
-                        if (deviceAddress.equalsIgnoreCase(tzPreference.getTzDeviceAddr())) {
-                            MyApplication.bleService.connect(deviceAddress);
-                            MyApplication.mBluetoothAdapter.stopLeScan(null);
-                        }
-                    } else {
-                        if (deviceName.equalsIgnoreCase("ST-BL-1") | deviceName.equalsIgnoreCase("FSRK-FRK-001")) {
-                            MyApplication.bleService.connect(deviceAddress);
-                            MyApplication.mBluetoothAdapter.stopLeScan(null);
-                        }
-                    }
-
-                }
-            });
-        }
-    };
-
-    BluetoothAdapter.LeScanCallback stopScanCallback = new BluetoothAdapter.LeScanCallback() {
-        @Override
-        public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
-            //scanFuruikDevice(true);
-            tzPJOperator.setEnabled(true);
-        }
-    };
-
-    private boolean mScanning = false;
-    private static final long SCAN_PERIOD = 60 * 1000;
-    private Handler mHandler = new Handler();
 }

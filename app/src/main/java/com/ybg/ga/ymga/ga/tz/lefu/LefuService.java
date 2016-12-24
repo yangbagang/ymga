@@ -107,13 +107,13 @@ public class LefuService extends AbstractBLEService {
         byte age = (byte) userPreferences.getAge();
         //01表示单位为kg
         byte verify = (byte) (sex ^ bodyHigh ^ age ^ 1);
-        byte[] cmd = {(byte) 0xfe, 00, sex, 00, bodyHigh, age, 01, verify};
+        byte[] cmd = {(byte) 0xfe, 0, sex, 0, bodyHigh, age, 1, verify};
         writeCharactCmd(cmd);
 
     }
 
     public void sendStopCmd() {
-        byte[] cmd = {(byte) 0xFD, 35, 00, 00, 00, 00, 00, 0x35};
+        byte[] cmd = {(byte) 0xFD, 35, 0, 0, 0, 0, 0, 0x35};
         writeCharactCmd(cmd);
     }
 
