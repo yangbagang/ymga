@@ -227,7 +227,7 @@ public class XYUrionBTActivity extends Activity {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             xyUrionService = ((XYUrionService.XYUrionBinder) service).getService();
-            checkPermission();
+            startMeasure();
         }
 
         @Override
