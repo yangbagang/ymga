@@ -112,7 +112,9 @@ public class TZLefuBTActivity extends Activity {
         Intent bindIntent = new Intent(TZLefuBTActivity.this, TZDataService.class);
         bindService(bindIntent, mConnection, Context.BIND_AUTO_CREATE);
 
-        checkPermission();
+        if (checkPermission()) {
+            startMeasure();
+        }
     }
 
     @Override

@@ -91,6 +91,7 @@ public class TZLefuBLEActivity extends Activity {
             }
 
             if (lefuService != null) {
+                tzProgressTV.setText("正在搜索设备..");
                 lefuService.scanBLEDevice(true);
             } else {
                 bindService(new Intent(TZLefuBLEActivity.this, LefuService.class),
@@ -129,7 +130,9 @@ public class TZLefuBLEActivity extends Activity {
         Intent bindIntent = new Intent(TZLefuBLEActivity.this, TZDataService.class);
         bindService(bindIntent, mConnection, Context.BIND_AUTO_CREATE);
 
-        checkPermission();
+        if (checkPermission()) {
+            startMeasure();
+        }
     }
 
     @Override
@@ -201,7 +204,10 @@ public class TZLefuBLEActivity extends Activity {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             lefuService = ((LefuService.LefuBinder) service).getService();
-            lefuService.scanBLEDevice(true);
+            if (checkPermission()) {
+                tzProgressTV.setText("正在搜索设备..");
+                lefuService.scanBLEDevice(true);
+            }
         }
 
         @Override

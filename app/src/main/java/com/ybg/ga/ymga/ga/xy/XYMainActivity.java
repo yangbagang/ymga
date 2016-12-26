@@ -63,8 +63,6 @@ public class XYMainActivity extends SubActivity {
     private ImageView xyMeasureImage2 = null;
     private ImageView xyMeasureImage3 = null;
 
-    private String xyModel = null;
-
     @SuppressLint("SimpleDateFormat")
     private SimpleDateFormat sdf = new SimpleDateFormat(
             "yyyy-MM-dd HH:mm:ss");
@@ -121,7 +119,7 @@ public class XYMainActivity extends SubActivity {
 
     public void xyOperation(View view) {
         String operator = ((Button) view).getText().toString();
-        if (xyModel == null && BTStatus.BT_BUTTONS[BTStatus.BT_STATU_NOT_ASSIGN].equals(operator)) {
+        if (BTStatus.BT_BUTTONS[BTStatus.BT_STATU_NOT_ASSIGN].equals(operator)) {
             // 还未绑定，开始绑定过程
             Intent intent = new Intent(XYMainActivity.this,
                     XYDeviceListActivity.class);
@@ -135,14 +133,28 @@ public class XYMainActivity extends SubActivity {
                         .ACCESS_COARSE_LOCATION,
                 message, AppConstat.PERMISSION_REQUEST_CODE_ACCESS_COARSE_LOCATION);
         if (hasRight) {
-            String model = xyPreference.getXyDeviceModel();
+            startMeasure();
+        }
+    }
+
+    private void startMeasure() {
+        String model = xyPreference.getXyDeviceModel();
+        if (xyPreference.hasAssign()) {
             if ("urion_bt".equalsIgnoreCase(model)) {
+                //启动双模版
                 Intent intent = new Intent(XYMainActivity.this, XYUrionBTActivity.class);
                 getParent().startActivityForResult(intent, AppConstat.XY_MEASURE_REQUEST_CODE);
             } else {
+                //启动单模版
                 Intent intent = new Intent(XYMainActivity.this, XYUrionBLEActivity.class);
                 getParent().startActivityForResult(intent, AppConstat.XY_MEASURE_REQUEST_CODE);
             }
+        } else {
+            // 还未绑定，开始绑定过程
+            Intent intent = new Intent(XYMainActivity.this,
+                    XYDeviceListActivity.class);
+            getParent().startActivityForResult(intent,
+                    AppConstat.XY_DEVICE_REQUEST_CODE);
         }
     }
 
@@ -150,7 +162,7 @@ public class XYMainActivity extends SubActivity {
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == AppConstat.PERMISSION_REQUEST_CODE_ACCESS_COARSE_LOCATION) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                xyPJOperator.performClick();
+                startMeasure();
             } else {
                 String message1 = getString(R.string.permission_request_notice, getString(R.string
                         .app_name), getString(R.string.permission_access_coarse_location));
@@ -173,7 +185,6 @@ public class XYMainActivity extends SubActivity {
                 xyPreference.setXyDeviceName(xyDeviceName);
                 xyPreference.setXyDeviceModel(xyDeviceModel);
                 xyPJName.setText(xyDeviceName);
-                xyModel = xyDeviceModel;
                 if ("urion_bt".equalsIgnoreCase(xyDeviceModel)) {
                     // 开始扫描蓝牙设备
                     Intent intent = new Intent(this, BTDeviceListActivity.class);
@@ -238,6 +249,7 @@ public class XYMainActivity extends SubActivity {
 
     @Override
     protected void onStart() {
+        super.onStart();
         // 开启蓝牙
         BluetoothAdapter bluetoothAdapter = BluetoothAdapter
                 .getDefaultAdapter();

@@ -44,7 +44,6 @@ public class TZFurikBLEActivity extends Activity {
     private ProgressBar tzProgressBar = null;
 
     private TZDataService tzDataService = null;
-    private Intent bindIntent = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,14 +131,19 @@ public class TZFurikBLEActivity extends Activity {
             intentFilter.addAction(Confing.BLE_Confirm_Data);
             registerReceiver(broadcastReceiver, intentFilter);
         }
-        bindIntent = new Intent(TZFurikBLEActivity.this, TZDataService.class);
+        Intent bindIntent = new Intent(TZFurikBLEActivity.this, TZDataService.class);
         bindService(bindIntent, mConnection, Context.BIND_AUTO_CREATE);
 
-        checkPermission();
+        if (checkPermission()) {
+            startMeasure();
+        }
     }
 
     @Override
     protected void onStop() {
+        if (mScanning) {
+            scanFuruikDevice(false);
+        }
         if (MyApplication.bleService != null) {
             unbindService(furuikConnection);
         }
@@ -244,7 +248,9 @@ public class TZFurikBLEActivity extends Activity {
                 Log.e("BLE", "初始化失败");
             } else {
                 Log.e("BLE", "初始化成功");
-                scanFuruikDevice(true);
+                if (checkPermission()) {
+                    scanFuruikDevice(true);
+                }
             }
         }
     };

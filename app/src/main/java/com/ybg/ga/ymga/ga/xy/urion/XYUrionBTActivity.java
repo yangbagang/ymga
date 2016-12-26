@@ -4,7 +4,6 @@
 package com.ybg.ga.ymga.ga.xy.urion;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
@@ -28,8 +27,6 @@ import com.ybg.ga.ymga.ga.preference.XYPreference;
 import com.ybg.ga.ymga.ga.xy.XYDataService;
 import com.ybg.ga.ymga.util.AppConstat;
 
-import java.text.SimpleDateFormat;
-
 /**
  * @author 杨拔纲
  */
@@ -44,7 +41,6 @@ public class XYUrionBTActivity extends Activity {
 
     private XYDataService xyDataService = null;
     private XYUrionService xyUrionService = null;
-    private Intent bindIntent = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,13 +54,6 @@ public class XYUrionBTActivity extends Activity {
     private void initView() {
         readProgressBar = (ProgressBar) findViewById(R.id.xy_jiance_pb);
         readProgressTitle = (TextView) findViewById(R.id.xy_jiance_tv);
-        boolean hasRight = checkPermission();
-        if (hasRight && (xyUrionService != null)) {
-            // 尝试启动设备并获取数据
-            startMeasure();
-            // 启动进度条
-            readProgressTitle.setText("正在初始化...");
-        }
     }
 
     private boolean checkPermission() {
@@ -91,6 +80,7 @@ public class XYUrionBTActivity extends Activity {
 
     @Override
     protected void onStart() {
+        super.onStart();
         // 开启蓝牙
         BluetoothAdapter bluetoothAdapter = BluetoothAdapter
                 .getDefaultAdapter();
@@ -117,9 +107,8 @@ public class XYUrionBTActivity extends Activity {
             registerReceiver(xyMeasureBroadcastReceiver,
                     intentFilter);
         }
-        bindIntent = new Intent(XYUrionBTActivity.this, XYDataService.class);
+        Intent bindIntent = new Intent(XYUrionBTActivity.this, XYDataService.class);
         bindService(bindIntent, mConnection, Context.BIND_AUTO_CREATE);
-        super.onStart();
     }
 
     @Override
@@ -136,6 +125,8 @@ public class XYUrionBTActivity extends Activity {
     }
 
     private void startMeasure() {
+        // 启动进度条
+        readProgressTitle.setText("正在初始化...");
         // 发送测量指令
         if (xyUrionService != null) {
             xyUrionService.connectAndStart(xyPreference.getXyDeviceAddr());
@@ -167,10 +158,6 @@ public class XYUrionBTActivity extends Activity {
     }
 
     private BroadcastReceiver xyMeasureBroadcastReceiver = new BroadcastReceiver() {
-
-        @SuppressLint("SimpleDateFormat")
-        private SimpleDateFormat sdf = new SimpleDateFormat(
-                "yyyy-MM-dd HH:mm:ss");
 
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -227,7 +214,9 @@ public class XYUrionBTActivity extends Activity {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             xyUrionService = ((XYUrionService.XYUrionBinder) service).getService();
-            startMeasure();
+            if (checkPermission()) {
+                startMeasure();
+            }
         }
 
         @Override
