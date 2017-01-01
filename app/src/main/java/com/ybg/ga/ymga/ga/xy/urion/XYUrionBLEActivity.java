@@ -172,6 +172,7 @@ public class XYUrionBLEActivity extends Activity {
                 }
                 if (urionService != null) {
                     urionService.sendStartCmd();
+                    readProgressTitle.setText("正在测量，请稍候。");
                 }
             } else if (BTAction.getDisConnected(BTPrefix.XY).equals(action)) {
                 readProgressTitle.setText("连接己断开");

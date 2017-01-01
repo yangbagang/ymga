@@ -211,9 +211,9 @@ public class XYMainActivity extends SubActivity {
             int dia = data.getExtras().getInt("dia");
             int pul = data.getExtras().getInt("pul");
             // 显示数据
-            xyMeasureData1.setText(sys);
-            xyMeasureData2.setText(dia);
-            xyMeasureData3.setText(pul);
+            xyMeasureData1.setText("" + sys);
+            xyMeasureData2.setText("" + dia);
+            xyMeasureData3.setText("" + pul);
             xyMeasureTimeLabel.setText("测量时间：" + sdf.format(new Date()));
             // 显示是否正常
             xyMeasureImage1.setImageResource(XYCheckUtil
