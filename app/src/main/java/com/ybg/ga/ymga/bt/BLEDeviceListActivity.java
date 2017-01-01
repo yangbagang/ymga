@@ -133,8 +133,12 @@ public class BLEDeviceListActivity extends Activity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    foundDevicesArrayAdapter.add(device.getName());
-                    deviceAddressList.add(device.getAddress());
+                    String name = device.getName();
+                    String address = device.getAddress();
+                    if (name != null && !deviceAddressList.contains(address)) {
+                        foundDevicesArrayAdapter.add(name);
+                        deviceAddressList.add(address);
+                    }
                 }
             });
         }
