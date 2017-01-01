@@ -212,10 +212,12 @@ public class TZFurikBLEActivity extends Activity {
                 System.out.println("" + wei);
             } else if (action.equals(Confing.BLE_Confirm_Data)) {//测量稳定后的体重
                 float wei = intent.getFloatExtra("confirmwei", 0);
-                TzBean tzBean = new TzBean(wei, 0, 0, 0, 0, 0, 0,
-                        0, 0, 0);
-                processTzData(tzBean);
-                ;
+                System.out.println("" + wei);
+                if ("".equals(userPreference.getBirthday())) {
+                    //未设置个性信息，就此结束。
+                    TzBean tzBean = new TzBean(wei, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+                    processTzData(tzBean);
+                }
             }
         }
 
