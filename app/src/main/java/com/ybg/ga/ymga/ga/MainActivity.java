@@ -134,6 +134,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             ydHistory(null);
         } else if (id == R.id.nav_location) {
             locateMe(null);
+        } else if (id == R.id.nav_device) {
+            startActivity(new Intent(this, DeviceManagerActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

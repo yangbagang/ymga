@@ -20,6 +20,10 @@
             android:icon="@mipmap/left_zl"
             android:title="@string/menu_item_location" />
         <item
+            android:id="@+id/nav_device"
+            android:icon="@mipmap/left_fx"
+            android:title="@string/menu_item_device" />
+        <item
             android:id="@+id/nav_about"
             android:icon="@mipmap/left_gy"
             android:title="@string/menu_item_about" />

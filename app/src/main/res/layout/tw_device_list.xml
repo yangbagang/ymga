@@ -26,8 +26,8 @@
         android:layout_height="50dp"
         android:layout_below="@+id/twDeviceListBarLayout"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:background="@color/bottomBar_bg_color"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/selected_sharp_bg2"
         android:gravity="center_horizontal"
         android:onClick="selectTWDevice"
         android:orientation="vertical"
@@ -36,7 +36,27 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/twDeviceIr"
+            android:text="@string/twDeviceIrBT"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/twIRLabel2"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/twIRLabel1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/selected_sharp_bg2"
+        android:gravity="center_horizontal"
+        android:onClick="selectTWDevice"
+        android:orientation="vertical"
+        android:paddingTop="15dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/twDeviceIrBLE"
             android:textSize="15sp" />
     </LinearLayout>
 

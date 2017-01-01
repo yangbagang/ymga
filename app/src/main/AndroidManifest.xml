@@ -1,12 +1,12 @@
-<manifest package="com.ybg.ga.ymga"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ybg.ga.ymga">
 
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <!-- 这个权限用于进行网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission-sdk-23 android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission-sdk-23 android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!-- 这个权限用于访问GPS定位 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission-sdk-23 android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -48,8 +48,8 @@
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote" >
-        </service>
+            android:process=":remote"></service>
+
         <activity
             android:name=".WelcomeActivity"
             android:label="@string/app_name"
@@ -59,76 +59,185 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AppIntroActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ga.MainActivity" android:screenOrientation="portrait" android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".ga.activity.AboutActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".bt.BTDeviceListActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".bt.BLEDeviceListActivity" android:screenOrientation="portrait"/>
+        <activity
+            android:name=".AppIntroActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ga.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ga.activity.AboutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".bt.BTDeviceListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".bt.BLEDeviceListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ga.DeviceManagerActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".ga.xy.XYWelcomeActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ga.xy.XYMainActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ga.xy.XYHistoryActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ga.xy.XySettingActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ga.xy.XYHistorySearchActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ga.xy.XYDeviceListActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ga.xy.urion.XYUrionBLEActivity"
-                  android:screenOrientation="portrait" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"/>
-        <activity android:name=".ga.xy.urion.XYUrionBTActivity"
-                  android:screenOrientation="portrait" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"/>
-        <service android:name=".ga.xy.urion.UrionService"/>
-        <service android:name=".ga.xy.XYDataService"/>
+        <activity
+            android:name=".ga.xy.XYWelcomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ga.xy.XYMainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ga.xy.XYHistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ga.xy.XySettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ga.xy.XYHistorySearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ga.xy.XYDeviceListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ga.xy.urion.XYUrionBLEActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+        <activity
+            android:name=".ga.xy.urion.XYUrionBTActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
 
-        <activity android:name=".ga.tz.TZMainActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ga.tz.TZWelcomeActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ga.tz.TZHistoryActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ga.tz.TZSettingActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ga.tz.TZHistorySearchActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ga.tz.TZDeviceListActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ga.tz.lefu.TZLefuBLEActivity"
-                  android:screenOrientation="portrait" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"/>
-        <activity android:name=".ga.tz.lefu.TZLefuBTActivity"
-                  android:screenOrientation="portrait" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"/>
-        <activity android:name=".ga.tz.furuik.TZFurikBLEActivity"
-                  android:screenOrientation="portrait" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"/>
-        <service android:name=".ga.tz.TZDataService"/>
+        <service android:name=".ga.xy.urion.UrionService" />
+        <service android:name=".ga.xy.XYDataService" />
+
+        <activity
+            android:name=".ga.tz.TZMainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ga.tz.TZWelcomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ga.tz.TZHistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ga.tz.TZSettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ga.tz.TZHistorySearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ga.tz.TZDeviceListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ga.tz.lefu.TZLefuBLEActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+        <activity
+            android:name=".ga.tz.lefu.TZLefuBTActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+        <activity
+            android:name=".ga.tz.furuik.TZFurikBLEActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+
+        <service android:name=".ga.tz.TZDataService" />
         <service android:name=".ga.tz.furuik.BluetoothService" />
         <service android:name=".ga.tz.lefu.LefuService" />
         <service android:name="com.lefu.bluetoothauotpair.TimeService" />
         <service android:name="com.lefu.bluetoothauotpair.ScaneBluetoothService" />
 
-        <activity android:name=".ga.yd.YDWelcomeActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ga.yd.YDMainActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ga.yd.YdHistoryActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ga.yd.YdSettingActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ga.yd.YdHistorySearchActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ga.yd.YdDeviceListActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ga.yd.jStyle.JStyleSettingActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ga.yd.YDPeiJianSyncActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ga.pedometer.PedometerActivity" android:screenOrientation="portrait"/>
-        <service android:name=".ga.pedometer.StepService"/>
-        <service android:name=".ga.yd.jStyle.JStyleService"/>
-        <service android:name=".ga.yd.YDDataService"/>
+        <activity
+            android:name=".ga.yd.YDWelcomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ga.yd.YDMainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ga.yd.YdHistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ga.yd.YdSettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ga.yd.YdHistorySearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ga.yd.YdDeviceListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ga.yd.jStyle.JStyleSettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ga.yd.YDPeiJianSyncActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ga.pedometer.PedometerActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".user.LoginActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".user.RegisterActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".user.UserCenterActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".user.UserSettingActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".user.LocateMeActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.ClipImageActivity" android:screenOrientation="portrait" />
-        <service android:name=".user.UserSettingService"/>
-        <service android:name=".user.LoginService"/>
-        <service android:name=".user.RegisterService"/>
+        <service android:name=".ga.pedometer.StepService" />
+        <service android:name=".ga.yd.jStyle.JStyleService" />
+        <service android:name=".ga.yd.YDDataService" />
 
-        <activity android:name=".wxapi.WXEntryActivity" android:exported="true" android:screenOrientation="portrait" android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".user.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".user.RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".user.UserCenterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".user.UserSettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".user.LocateMeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.ClipImageActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".ga.tw.TWWelcomeActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ga.tw.TWMainActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ga.tw.TWHistoryActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ga.tw.TWQuShiActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ga.tw.TWDeviceListActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ga.tw.TWHistoryDataSearchActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ga.tw.TwSettingActivity" android:screenOrientation="portrait"/>
-        <service android:name=".ga.tw.TWDataService"/>
+        <service android:name=".user.UserSettingService" />
+        <service android:name=".user.LoginService" />
+        <service android:name=".user.RegisterService" />
+
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <activity
+            android:name=".ga.tw.TWWelcomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ga.tw.TWMainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ga.tw.TWHistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ga.tw.TWQuShiActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ga.tw.TWDeviceListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ga.tw.TWHistoryDataSearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ga.tw.TwSettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ga.tw.ir.IRBLEActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+        <activity
+            android:name=".ga.tw.ir.IRBTActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+
+        <service android:name=".ga.tw.TWDataService" />
         <service android:name=".ga.tw.ir.IRDeviceService" />
     </application>
 

@@ -99,6 +99,7 @@
     <string name="menu_item_history">历史</string>
     <string name="menu_item_discover">发现</string>
     <string name="menu_item_location">定位</string>
+    <string name="menu_item_device">设备</string>
     <string name="location_me_title">我在这里</string>
     <string name="gps_level_label">GPS信号：</string>
     <string name="gps_level_value">弱</string>
@@ -371,7 +372,8 @@
     <string name="userTWUnitLabel">习惯温度单位</string>
     <string name="twQushiTitle">温度趋势</string>
     <string name="twQushiSplite">至</string>
-    <string name="twDeviceIr">AT-U106</string>
+    <string name="twDeviceIrBT">AT-U106 BT</string>
+    <string name="twDeviceIrBLE">AT-U106 BLE</string>
 
     <!-- 权限 -->
     <string name="permission_read_phone_state">允许读取手机通话状态</string>

@@ -278,7 +278,7 @@ public class TWDataService extends Service {
     }
 
     public class TWDataBinder extends Binder {
-        TWDataService getService() {
+        public TWDataService getService() {
             return TWDataService.this;
         }
     }

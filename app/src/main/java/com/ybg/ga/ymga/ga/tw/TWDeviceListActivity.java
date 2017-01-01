@@ -1,6 +1,5 @@
 package com.ybg.ga.ymga.ga.tw;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -34,9 +33,12 @@ public class TWDeviceListActivity extends AppCompatActivity {
 
     public void selectTWDevice(View view) {
         Intent intent = new Intent();
-        if(view.getId() == R.id.twIRLabel1) {
-            intent.putExtra("twDeviceName", "AT-U106");
-            intent.putExtra("twDeviceModel", "ir");
+        if (view.getId() == R.id.twIRLabel1) {
+            intent.putExtra("twDeviceName", "AT-U106 BT");
+            intent.putExtra("twDeviceModel", "irBT");
+        } else {
+            intent.putExtra("twDeviceName", "AT-U106 BLE");
+            intent.putExtra("twDeviceModel", "irBLE");
         }
         setResult(AppConstat.TW_DEVICE_RESULT_CODE, intent);
         finish();

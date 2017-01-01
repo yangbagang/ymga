@@ -125,7 +125,7 @@ public class YbgApp {
 	public boolean checkPermission(final Activity activity, final String permission, final String message, final int requestCode) {
 		if (ContextCompat.checkSelfPermission(activity, permission) != PackageManager.PERMISSION_GRANTED) {
 			if (!ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)) {
-				new AlertDialog.Builder(activity)
+				new AlertDialog.Builder(activity, R.style.dialogTheme)
 						.setMessage(message)
 						.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 							@Override

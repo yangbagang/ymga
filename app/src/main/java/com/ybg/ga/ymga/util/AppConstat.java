@@ -65,6 +65,9 @@ public class AppConstat {
     public static int TW_DEVICE_REQUEST_CODE = 520;
     public static int TW_DEVICE_RESULT_CODE = 521;
     public static int TW_DEVICE_CANCEL_CODE = 522;
+    public static int TW_MEASURE_REQUEST_CODE = 530;
+    public static int TW_MEASURE_RESULT_CODE = 531;
+    public static int TW_MEASURE_CANCEL_CODE = 532;
 
     // 好友
     public static int MEMBER_ADD_REQUEST_CODE = 800;
